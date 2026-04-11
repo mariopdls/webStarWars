@@ -38,6 +38,7 @@ let naves = [
 }
 ];
 
+<<<<<<< HEAD
 
 function renderFormularioPiloto() {
     const contenedor = document.getElementById('contenedor-formulario-piloto');
@@ -87,3 +88,18 @@ document.querySelectorAll('nav button').forEach(boton => {
         document.getElementById(seccion).classList.add('activa');
     });
 });
+=======
+const seleccionarBoton= document.querySelectorAll('[data-seccion]');
+const seleccionarNav= document.querySelectorAll('.seccion');
+
+seleccionarBoton.forEach((boton) => {               //recorrer cada boton. primero una lambda y después hice un for normal, más entendible.   
+    boton.addEventListener('click', function() {
+        for (let i = 0; i < seleccionarNav.length; i++) {
+            seleccionarNav[i].classList.remove('activa');
+        }
+        document.getElementById(boton.dataset.seccion) 
+        .classList.add('activa');                           
+
+    });
+});
+>>>>>>> daa47d72dc698d43e491dd51925b0f22db802252
