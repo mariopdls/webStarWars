@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base Rebelde</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Base de la Alianza Rebelde</h1>
+    </header>
+
+    <!-- NAVEGACIÓN -->
+    <nav>
+        <ul>
+            <li><button data-seccion="hangar">Hangar</button></li>
+            <li><button data-seccion="pilotos">Pilotos</button></li>
+            <li><button data-seccion="misiones">Misiones</button></li>
+            <li><button data-seccion="panel">Panel</button></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="hangar" class="seccion activa">
+            <h2>🚀 Hangar de Naves</h2>
+
+            <div id="controles-hangar"></div>
+
+            <p id="contador-hangar"></p>
+
+            <div id="contenedor-hangar"></div>
+        </section>
+
+        <section id="pilotos" class="seccion oculta">
+            <h2>👨‍✈️ Registro de Pilotos</h2>
+
+            <div id="contenedor-formulario-piloto"></div>
+
+            <div id="lista-pilotos"></div>
+        </section>
+
+        <section id="misiones" class="seccion oculta">
+            <h2>📋 Panel de Misiones</h2>
+
+            <div id="contenedor-formulario-mision"></div>
+
+            <div id="filtros-misiones"></div>
+
+            <div id="tablero-kanban">
+
+                <div class="columna" id="pendiente">
+                    <h3>Pendiente (<span></span>)</h3>
+                    <div class="tarjetas"></div>
+                </div>
+
+                <div class="columna" id="en-curso">
+                    <h3>En curso (<span></span>)</h3>
+                    <div class="tarjetas"></div>
+                </div>
+
+                <div class="columna" id="completada">
+                    <h3>Completada (<span></span>)</h3>
+                    <div class="tarjetas"></div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="panel" class="seccion oculta">
+            <h2>📊 Mando de la Alianza</h2>
+
+            <div id="contenedor-estadisticas"></div>
+
+            <div id="contenedor-grafico"></div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Alianza Rebelde</p>
+    </footer>
+    <script src="js/main.js"></script>
+
+</body>
+</html>
