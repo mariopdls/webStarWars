@@ -38,7 +38,43 @@ let naves = [
 }
 ];
 
+<<<<<<< HEAD
 // funcion que muestra las secciones al hacer click en el boton correspondiente.
+=======
+
+function renderFormularioPiloto() {
+    const contenedor = document.getElementById('contenedor-formulario-piloto');
+ contenedor.innerHTML = `
+        <form id="form-piloto">
+            <h3>Añadir Piloto</h3>
+            <label for="piloto-nombre">Nombre</label>
+            <input type="text" id="piloto-nombre" placeholder="Ej: Luke Skywalker">
+
+            <label for="piloto-rango">Rango</label>
+            <input type="text" id="piloto-rango" placeholder="Ej: Comandante">
+
+            <label for="piloto-nave">Nave asignada</label>
+            <select id="piloto-nave">
+                <option value="">-- Selecciona una nave --</option>
+                ${naves.map(nave => `<option value="${nave.id}">${nave.nombre}</option>`).join('')}
+            </select>
+
+            <label for="piloto-victorias">Victorias en combate</label>
+            <input type="number" id="piloto-victorias" placeholder="Ej: 10" min="0">
+
+            <label for="piloto-estado">Estado</label>
+            <select id="piloto-estado">
+                <option value="activo">Activo</option>
+                <option value="herido">Herido</option>
+                <option value="KIA">KIA</option>
+            </select>
+
+            <button type="submit">➕ Añadir piloto</button>
+        </form>
+    `;
+}
+renderFormularioPiloto();
+>>>>>>> 13d448ca2cb1dff7eb0dff9bd1afc4da2db2aca0
 
 const seleccionarBoton= document.querySelectorAll('[data-seccion]');
 const seleccionarNav= document.querySelectorAll('.seccion');
