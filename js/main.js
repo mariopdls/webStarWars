@@ -37,3 +37,17 @@ let naves = [
     id: 10, nombre: 'B-Wing', tipo: 'Caza', velocidad: 1600, tripulacion: 1, estado: 'operativa', emojiRepresentativo: '🦇'
 }
 ];
+
+const seleccionarBoton= document.querySelectorAll('[data-seccion]');
+const seleccionarNav= document.querySelectorAll('.seccion');
+
+seleccionarBoton.forEach((boton) => {               //recorrer cada boton. primero una lambda y después hice un for normal, más entendible.   
+    boton.addEventListener('click', function() {
+        for (let i = 0; i < seleccionarNav.length; i++) {
+            seleccionarNav[i].classList.remove('activa');
+        }
+        document.getElementById(boton.dataset.seccion) 
+        .classList.add('activa');                           
+
+    });
+});
