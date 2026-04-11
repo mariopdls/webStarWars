@@ -1,6 +1,17 @@
 /* FUENTE */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
+@font-face {
+    font-family: 'StarJedi';
+    src: url(../fonts/Starjedi.ttf) format('truetype');
+}
+
+
+@font-face {
+    font-family: 'StarJedi2';
+    src: url(../fonts/STJEDISE.TTF) format('truetype');
+}
+
 /* VARIABLES */
 :root {
     --color-primario: #ffe81f;
@@ -19,7 +30,7 @@
 
 /* 🌌 FONDO STAR WARS */
 body {
-    font-family: 'Orbitron', Arial, sans-serif;
+    font-family: 'Orbitron';
     color: var(--color-texto);
     min-height: 100vh;
     position: relative;
@@ -55,9 +66,11 @@ header {
 
 header h1 {
     color: var(--color-primario);
-    text-shadow: 0 0 15px var(--color-primario);
+    text-shadow: 0 0 4px var(--color-primario);
     letter-spacing: 3px;
+    font-family: 'StarJedi', sans-serif;
 }
+
 
 /* NAV */
 nav {
@@ -113,7 +126,9 @@ main {
 h2 {
     margin-bottom: 1rem;
     color: var(--color-primario);
-    text-shadow: 0 0 10px var(--color-primario);
+    text-shadow: 0 0 2px var(--color-primario);
+    font-family: 'StarJedi2';
+    letter-spacing: 3px;
 }
 
 /* GRID */
