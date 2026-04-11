@@ -55,12 +55,11 @@ function renderFormularioPiloto() {
             <input type="text" id="piloto-rango" placeholder="Ej: Comandante">
 
             <label for="piloto-nave">Nave asignada</label>
+            
             <select id="piloto-nave">
                 <option value="">-- Selecciona una nave --</option>
-                ${naves.map(nave => `<option value="${nave.id}">${nave.nombre}</option>`).join('')}  // recorrer las distintas naves y crea opciones, el valor es la clave id,
-                                                                                                    //  muestra el nombre que le corresponde y vuelve a convertirlo en cadena
+                ${naves.map(nave => `<option value="${nave.id}">${nave.nombre}</option>`).join('')}  
             </select>
-
             <label for="piloto-victorias">Victorias en combate</label>
             <input type="number" id="piloto-victorias" placeholder="Ej: 10" min="0">
 
@@ -74,6 +73,10 @@ function renderFormularioPiloto() {
             <button type="submit">➕ Añadir piloto</button>
         </form>
     `;
+    //${naves.map(nave => `<option value="${nave.id}">${nave.nombre}</option>`).join('')}  
+    // recorrer las distintas naves y crea opciones, el valor es la clave id,
+    //  muestra el nombre que le corresponde y vuelve a convertirlo en cadena
+    
     document.getElementById('form-piloto').addEventListener('submit', addPiloto);
 }
 renderFormularioPiloto();
@@ -128,6 +131,7 @@ function renderPilotos() {
             <p>Nave: ${naves.find(n => n.id == piloto.nave)?.nombre || 'Sin nave'}</p>
             <p>Victorias: ${piloto.victorias}</p>
             <p>Estado: ${piloto.estado}</p>
+            <button onclick="editarPiloto(${piloto.id})">✏️ Editar</button>
             <button onclick="eliminarPiloto(${piloto.id})">🗑️ Eliminar</button>
         `;
 
