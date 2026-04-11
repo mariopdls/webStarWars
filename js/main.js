@@ -37,3 +37,53 @@ let naves = [
     id: 10, nombre: 'B-Wing', tipo: 'Caza', velocidad: 1600, tripulacion: 1, estado: 'operativa', emojiRepresentativo: '🦇'
 }
 ];
+
+
+function renderFormularioPiloto() {
+    const contenedor = document.getElementById('contenedor-formulario-piloto');
+ contenedor.innerHTML = `
+        <form id="form-piloto">
+            <h3>Añadir Piloto</h3>
+            <label for="piloto-nombre">Nombre</label>
+            <input type="text" id="piloto-nombre" placeholder="Ej: Luke Skywalker">
+
+            <label for="piloto-rango">Rango</label>
+            <input type="text" id="piloto-rango" placeholder="Ej: Comandante">
+
+            <label for="piloto-nave">Nave asignada</label>
+            <select id="piloto-nave">
+                <option value="">-- Selecciona una nave --</option>
+                ${naves.map(nave => `<option value="${nave.id}">${nave.nombre}</option>`).join('')}
+            </select>
+
+            <label for="piloto-victorias">Victorias en combate</label>
+            <input type="number" id="piloto-victorias" placeholder="Ej: 10" min="0">
+
+            <label for="piloto-estado">Estado</label>
+            <select id="piloto-estado">
+                <option value="activo">Activo</option>
+                <option value="herido">Herido</option>
+                <option value="KIA">KIA</option>
+            </select>
+
+            <button type="submit">➕ Añadir piloto</button>
+        </form>
+    `;
+}
+renderFormularioPiloto();
+
+document.querySelectorAll('nav button').forEach(boton => {
+    boton.addEventListener('click', () => {
+        const seccion = boton.dataset.seccion;
+
+        // Ocultar todas las secciones
+        document.querySelectorAll('.seccion').forEach(s => {
+            s.classList.remove('activa');
+            s.classList.add('oculta');
+        });
+
+        // Mostrar la sección elegida
+        document.getElementById(seccion).classList.remove('oculta');
+        document.getElementById(seccion).classList.add('activa');
+    });
+});
