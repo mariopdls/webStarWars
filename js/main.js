@@ -108,6 +108,22 @@ function addPiloto(e) {
         estado
     };
 
+     const editando = document.getElementById('form-piloto').dataset.editando;
+
+    if (editando) {
+        pilotos = pilotos.map(p => {
+            if (p.id === Number(editando)) {
+                return { id: p.id, nombre, rango, nave, victorias, estado };
+            }
+            return p;
+        });
+        delete document.getElementById('form-piloto').dataset.editando;
+        document.querySelector('#form-piloto button[type="submit"]').textContent = '➕ Añadir piloto';
+    } else {
+        const nuevoPiloto = { id: Date.now(), nombre, rango, nave, victorias, estado };
+        pilotos.push(nuevoPiloto);
+    }
+
     pilotos.push(nuevoPiloto);
     localStorage.setItem('pilotos', JSON.stringify(pilotos)); // convierte el array en texto para guardarlo en el LocalStorage
     renderPilotos();
@@ -138,6 +154,35 @@ function renderPilotos() {
 
         contenedor.appendChild(tarjeta);
     });
+}
+
+
+function eliminarPiloto(id) {
+    const confirmacion = confirm('¿Seguro que quieres eliminar este piloto?');
+    
+    if (confirmacion) {
+        pilotos = pilotos.filter(piloto => piloto.id !== id);
+        localStorage.setItem('pilotos', JSON.stringify(pilotos));
+        renderPilotos();
+    }
+}
+
+function editarPiloto(id) {
+    const piloto = pilotos.find(p => p.id === id);
+
+    // Rellenar el formulario con sus datos
+    document.getElementById('piloto-nombre').value = piloto.nombre;
+    document.getElementById('piloto-rango').value = piloto.rango;
+    document.getElementById('piloto-nave').value = piloto.nave;
+    document.getElementById('piloto-victorias').value = piloto.victorias;
+    document.getElementById('piloto-estado').value = piloto.estado;
+
+    // Cambiar el texto del botón
+    const boton = document.querySelector('#form-piloto button[type="submit"]');
+    boton.textContent = '💾 Guardar cambios';
+
+    // Guardar qué piloto estamos editando
+    document.getElementById('form-piloto').dataset.editando = id;
 }
 
 const seleccionarBoton= document.querySelectorAll('[data-seccion]');
