@@ -38,11 +38,13 @@ let naves = [
 }
 ];
 
+// funcion que muestra las secciones al hacer click en el boton correspondiente.
+
 const seleccionarBoton= document.querySelectorAll('[data-seccion]');
 const seleccionarNav= document.querySelectorAll('.seccion');
 
-seleccionarBoton.forEach((boton) => {               //recorrer cada boton. primero una lambda y después hice un for normal, más entendible.   
-    boton.addEventListener('click', function() {
+seleccionarBoton.forEach((boton) => {               //recorrer cada boton. primero una lambda y después hice un for    
+    boton.addEventListener('click', function() {    // indexado, más entendible que con dos lambdas.
         for (let i = 0; i < seleccionarNav.length; i++) {
             seleccionarNav[i].classList.remove('activa');
         }
