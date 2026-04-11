@@ -37,6 +37,7 @@ let naves = [
     id: 10, nombre: 'B-Wing', tipo: 'Caza', velocidad: 1600, tripulacion: 1, estado: 'operativa', emojiRepresentativo: '🦇'
 }
 ];
+
 // funcion que muestra las secciones al hacer click en el boton correspondiente.
 
 let pilotos = JSON.parse(localStorage.getItem('pilotos')) || [];  // busca en el localStorage si hay algo con el valor pilotos, si lo haylo pasa a array ya que
@@ -152,3 +153,30 @@ seleccionarBoton.forEach((boton) => {               //recorrer cada boton. prime
 
     });
 });
+
+
+//funcion para generar las tarjetas de las naves.
+function renderHangar() {
+const contenedor= document.getElementById('contenedor-hangar')
+contenedor.innerHTML = ''; //limpiar el contenedor antes de agregar las tarjetas.
+
+for (let i = 0; i < naves.length; i++) { 
+    const nave = naves[i];
+    const tarjeta = document.createElement('div'); //crear un div para cada tarjeta.
+    tarjeta.classList.add('tarjeta'); //agregar la clase tarjeta al div.
+    tarjeta.innerHTML = `
+        <h3>${nave.nombre} ${nave.emojiRepresentativo}</h3>
+        <p>Tipo: ${nave.tipo}</p>
+        <p>Velocidad: ${nave.velocidad} km/h</p>
+        <p>Tripulación: ${nave.tripulacion}</p>
+        <p>Estado: ${nave.estado}</p>
+    `;     //   agregar el contenido de la tarjeta con las propiedades de la nave.
+    contenedor.appendChild(tarjeta); //agregar la tarjeta al contenedor.
+
+}
+    document.getElementById('contador-hangar').textContent = `Total de naves: ${naves.length}`; //mostrar el total de naves en el hangar.       
+
+}
+
+
+renderHangar(); //llamar a la función para mostrar las tarjetas al cargar la página.
