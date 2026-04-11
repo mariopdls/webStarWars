@@ -37,10 +37,10 @@ let naves = [
     id: 10, nombre: 'B-Wing', tipo: 'Caza', velocidad: 1600, tripulacion: 1, estado: 'operativa', emojiRepresentativo: '🦇'
 }
 ];
+// funcion que muestra las secciones al hacer click en el boton correspondiente.
 
 let pilotos = JSON.parse(localStorage.getItem('pilotos')) || [];  // busca en el localStorage si hay algo con el valor pilotos, si lo haylo pasa a array ya que
                                                                     // el localStorage solo guarda String y luego le dice que si no encuentra ninguno en vez de devolver null devuelva vacio
-
 
 
 function renderFormularioPiloto() {
@@ -138,8 +138,8 @@ function renderPilotos() {
 const seleccionarBoton= document.querySelectorAll('[data-seccion]');
 const seleccionarNav= document.querySelectorAll('.seccion');
 
-seleccionarBoton.forEach((boton) => {               //recorrer cada boton. primero una lambda y después hice un for normal, más entendible.   
-    boton.addEventListener('click', function() {
+seleccionarBoton.forEach((boton) => {               //recorrer cada boton. primero una lambda y después hice un for    
+    boton.addEventListener('click', function() {    // indexado, más entendible que con dos lambdas.
         for (let i = 0; i < seleccionarNav.length; i++) {
             seleccionarNav[i].classList.remove('activa');
         }
