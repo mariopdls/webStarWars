@@ -111,12 +111,14 @@ function addPiloto(e) {
      const editando = document.getElementById('form-piloto').dataset.editando;
 
     if (editando) {
-        pilotos = pilotos.map(p => {
+        // recorre pilotos y cuando encuentra al que se esta editando lo sustituye por el nuevo
+        pilotos = pilotos.map(p => { 
             if (p.id === Number(editando)) {
                 return { id: p.id, nombre, rango, nave, victorias, estado };
             }
             return p;
         });
+        //Borra el id guardado en el formulario y vuelve a poner el texto original del botón.
         delete document.getElementById('form-piloto').dataset.editando;
         document.querySelector('#form-piloto button[type="submit"]').textContent = '➕ Añadir piloto';
     } else {
@@ -124,7 +126,6 @@ function addPiloto(e) {
         pilotos.push(nuevoPiloto);
     }
 
-    pilotos.push(nuevoPiloto);
     localStorage.setItem('pilotos', JSON.stringify(pilotos)); // convierte el array en texto para guardarlo en el LocalStorage
     renderPilotos();
 }
@@ -161,7 +162,7 @@ function eliminarPiloto(id) {
     const confirmacion = confirm('¿Seguro que quieres eliminar este piloto?');
     
     if (confirmacion) {
-        pilotos = pilotos.filter(piloto => piloto.id !== id);
+        pilotos = pilotos.filter(piloto => piloto.id !== id); // recorre todos los pilotos que no sean el que queremos borrar y los guarda
         localStorage.setItem('pilotos', JSON.stringify(pilotos));
         renderPilotos();
     }
