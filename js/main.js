@@ -38,7 +38,6 @@ let naves = [
 }
 ];
 
-<<<<<<< HEAD
 
 function renderFormularioPiloto() {
     const contenedor = document.getElementById('contenedor-formulario-piloto');
@@ -73,22 +72,6 @@ function renderFormularioPiloto() {
 }
 renderFormularioPiloto();
 
-document.querySelectorAll('nav button').forEach(boton => {
-    boton.addEventListener('click', () => {
-        const seccion = boton.dataset.seccion;
-
-        // Ocultar todas las secciones
-        document.querySelectorAll('.seccion').forEach(s => {
-            s.classList.remove('activa');
-            s.classList.add('oculta');
-        });
-
-        // Mostrar la sección elegida
-        document.getElementById(seccion).classList.remove('oculta');
-        document.getElementById(seccion).classList.add('activa');
-    });
-});
-=======
 const seleccionarBoton= document.querySelectorAll('[data-seccion]');
 const seleccionarNav= document.querySelectorAll('.seccion');
 
@@ -102,4 +85,3 @@ seleccionarBoton.forEach((boton) => {               //recorrer cada boton. prime
 
     });
 });
->>>>>>> daa47d72dc698d43e491dd51925b0f22db802252
