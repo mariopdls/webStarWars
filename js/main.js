@@ -38,6 +38,10 @@ let naves = [
 }
 ];
 
+let pilotos = JSON.parse(localStorage.getItem('pilotos')) || [];  // busca en el localStorage si hay algo con el valor pilotos, si lo haylo pasa a array ya que
+                                                                    // el localStorage solo guarda String y luego le dice que si no encuentra ninguno en vez de devolver null devuelva vacio
+
+
 
 function renderFormularioPiloto() {
     const contenedor = document.getElementById('contenedor-formulario-piloto');
@@ -53,7 +57,8 @@ function renderFormularioPiloto() {
             <label for="piloto-nave">Nave asignada</label>
             <select id="piloto-nave">
                 <option value="">-- Selecciona una nave --</option>
-                ${naves.map(nave => `<option value="${nave.id}">${nave.nombre}</option>`).join('')}
+                ${naves.map(nave => `<option value="${nave.id}">${nave.nombre}</option>`).join('')}  // recorrer las distintas naves y crea opciones, el valor es la clave id,
+                                                                                                    //  muestra el nombre que le corresponde y vuelve a convertirlo en cadena
             </select>
 
             <label for="piloto-victorias">Victorias en combate</label>
@@ -69,8 +74,66 @@ function renderFormularioPiloto() {
             <button type="submit">➕ Añadir piloto</button>
         </form>
     `;
+    document.getElementById('form-piloto').addEventListener('submit', addPiloto);
 }
 renderFormularioPiloto();
+
+function addPiloto(e) {
+    e.preventDefault();
+
+    // 1. Recoger los valores del formulario
+    const nombre = document.getElementById('piloto-nombre').value.trim();
+    const rango = document.getElementById('piloto-rango').value.trim();
+    const nave = document.getElementById('piloto-nave').value;
+    const victorias = Number(document.getElementById('piloto-victorias').value);
+    const estado = document.getElementById('piloto-estado').value;
+
+    // 2. Validar
+    if (nombre === '' || rango === '' || nave === '' || victorias < 0) {
+        alert('Por favor rellena todos los campos correctamente');
+        return;
+    }
+
+    // Crea el objeto piloto
+    const nuevoPiloto = {
+        id: Date.now(),
+        nombre,
+        rango,
+        nave,
+        victorias,
+        estado
+    };
+
+    pilotos.push(nuevoPiloto);
+    localStorage.setItem('pilotos', JSON.stringify(pilotos)); // convierte el array en texto para guardarlo en el LocalStorage
+    renderPilotos();
+}
+
+function renderPilotos() {
+    const contenedor = document.getElementById('lista-pilotos');
+    contenedor.innerHTML = '';
+
+    if (pilotos.length === 0) {
+        contenedor.innerHTML = '<p>No hay pilotos registrados</p>';
+        return;
+    }
+
+    pilotos.forEach(piloto => {
+        const tarjeta = document.createElement('div');
+        tarjeta.classList.add('tarjeta');
+
+        tarjeta.innerHTML = `
+            <h3>✈️ ${piloto.nombre}</h3>
+            <p>Rango: ${piloto.rango}</p>
+            <p>Nave: ${naves.find(n => n.id == piloto.nave)?.nombre || 'Sin nave'}</p>
+            <p>Victorias: ${piloto.victorias}</p>
+            <p>Estado: ${piloto.estado}</p>
+            <button onclick="eliminarPiloto(${piloto.id})">🗑️ Eliminar</button>
+        `;
+
+        contenedor.appendChild(tarjeta);
+    });
+}
 
 const seleccionarBoton= document.querySelectorAll('[data-seccion]');
 const seleccionarNav= document.querySelectorAll('.seccion');
