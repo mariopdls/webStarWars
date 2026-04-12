@@ -46,6 +46,64 @@ body {
     position: relative;
 }
 
+body.claro {
+    --color-fondo-overlay: rgba(30, 60, 120, 0.35);
+    --color-tarjeta: rgba(255, 255, 255, 0.15);
+    --color-texto: #ffffff;
+    --color-borde: rgba(255, 255, 255, 0.3);
+}
+
+body.claro .tarjeta {
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+body.claro form {
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+body.claro nav {
+    background: rgba(30, 60, 120, 0.3);
+    backdrop-filter: blur(12px);
+}
+
+body.claro header {
+    background: rgba(30, 60, 120, 0.3);
+    backdrop-filter: blur(12px);
+}
+
+body.claro .columna {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Boton tema oscuro/claro */
+
+#toggle-tema {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100;
+    background: transparent;
+    border: 1px solid var(--color-primario);
+    color: var(--color-primario);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+}
+
+#toggle-tema:hover {
+    background: var(--color-primario);
+    color: black;
+    box-shadow: 0 0 15px var(--color-primario);
+}
+
 /* Imagen de fondo */
 body::before {
     content: "";
