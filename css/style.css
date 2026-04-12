@@ -182,7 +182,14 @@ input, select {
     gap: 1rem;
     flex-wrap: wrap;
 }
-
+/* HANGAR */
+#contador-hangar {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    font-size: 25px;
+    padding-bottom: 15px;
+}
 .columna {
     flex: 1;
     min-width: 260px;
