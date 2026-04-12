@@ -40,8 +40,13 @@ let naves = [
 
 // funcion que muestra las secciones al hacer click en el boton correspondiente.
 
+
+
+
 let pilotos = JSON.parse(localStorage.getItem('pilotos')) || [];  // busca en el localStorage si hay algo con el valor pilotos, si lo haylo pasa a array ya que
                                                                     // el localStorage solo guarda String y luego le dice que si no encuentra ninguno en vez de devolver null devuelva vacio
+let misiones = JSON.parse(localStorage.getItem('misiones')) || [];
+
 
 
 function renderFormularioPiloto() {
@@ -82,6 +87,51 @@ function renderFormularioPiloto() {
 }
 renderFormularioPiloto();
 
+
+function renderFormularioMision() {
+    const contenedor = document.getElementById('contenedor-formulario-mision');
+    //Solo guarda pilotos en activo
+    const pilotosActivos = pilotos.filter(p => p.estado === 'activo');
+
+    contenedor.innerHTML = `
+        <form id="form-mision">
+            <h3>Nueva Misión</h3>
+
+            <label for="mision-nombre">Nombre de la misión</label>
+            <input type="text" id="mision-nombre" placeholder="Ej: Destruir la Death Star">
+
+            <label for="mision-descripcion">Descripción</label>
+            <input type="text" id="mision-descripcion" placeholder="Descripción breve">
+
+            <label for="mision-piloto">Piloto asignado</label>
+            <select id="mision-piloto">
+                <option value="">-- Selecciona un piloto --</option>
+                ${pilotosActivos.map(p => `<option value="${p.id}">${p.nombre}</option>`).join('')}
+            </select>
+
+            <label for="mision-dificultad">Dificultad</label>
+            <select id="mision-dificultad">
+                <option value="facil">Fácil</option>
+                <option value="media">Media</option>
+                <option value="dificil">Difícil</option>
+                <option value="suicida">Suicida</option>
+            </select>
+
+            <label for="mision-fecha">Fecha de inicio</label>
+            <input type="date" id="mision-fecha">
+
+            <button type="submit">➕ Crear misión</button>
+        </form>
+    `;
+
+    document.getElementById('form-mision').addEventListener('submit', addMision);
+}
+renderFormularioMision();
+
+
+
+
+
 function addPiloto(e) {
     e.preventDefault();
 
@@ -93,10 +143,29 @@ function addPiloto(e) {
     const estado = document.getElementById('piloto-estado').value;
 
     // 2. Validar
-    if (nombre === '' || rango === '' || nave === '' || victorias < 0) {
-        alert('Por favor rellena todos los campos correctamente');
-        return;
+    //  borra los mensajes de error y los bordes rojos que hubiera del intento anterior
+    document.querySelectorAll('.error').forEach(e => e.remove());
+    document.querySelectorAll('.invalido').forEach(e => e.classList.remove('invalido'));
+
+    let hayErrores = false;
+
+    function mostrarError(idCampo, mensaje) {
+        const campo = document.getElementById(idCampo);
+        campo.classList.add('invalido');
+        const error = document.createElement('p');
+        error.classList.add('error');
+        error.textContent = mensaje;
+        campo.insertAdjacentElement('afterend', error);
+        // después del elemento inserta el mensaje de error
+        hayErrores = true;
     }
+
+    if (nombre === '') mostrarError('piloto-nombre', 'El nombre no puede estar vacío');
+    if (rango === '') mostrarError('piloto-rango', 'El rango no puede estar vacío');
+    if (nave === '') mostrarError('piloto-nave', 'Debes seleccionar una nave');
+    if (!victorias || victorias < 0) mostrarError('piloto-victorias', 'Las victorias deben ser un número positivo');
+
+    if (hayErrores) return;
 
     // Crea el objeto piloto
     const nuevoPiloto = {
@@ -108,6 +177,7 @@ function addPiloto(e) {
         estado
     };
 
+    // saber si esta en edicion
      const editando = document.getElementById('form-piloto').dataset.editando;
 
     if (editando) {
@@ -129,6 +199,12 @@ function addPiloto(e) {
     localStorage.setItem('pilotos', JSON.stringify(pilotos)); // convierte el array en texto para guardarlo en el LocalStorage
     renderPilotos();
 }
+
+
+
+
+
+
 
 function renderPilotos() {
     const contenedor = document.getElementById('lista-pilotos');
@@ -158,6 +234,11 @@ function renderPilotos() {
 }
 
 
+
+
+
+
+
 function eliminarPiloto(id) {
     const confirmacion = confirm('¿Seguro que quieres eliminar este piloto?');
     
@@ -167,6 +248,11 @@ function eliminarPiloto(id) {
         renderPilotos();
     }
 }
+
+
+
+
+
 
 function editarPiloto(id) {
     const piloto = pilotos.find(p => p.id === id);
@@ -201,6 +287,11 @@ seleccionarBoton.forEach((boton) => {               //recorrer cada boton. prime
 });
 
 
+
+
+
+
+
 //funcion para generar las tarjetas de las naves.
 function renderHangar() {
 const contenedor= document.getElementById('contenedor-hangar')
@@ -223,6 +314,4 @@ for (let i = 0; i < naves.length; i++) {
     document.getElementById('contador-hangar').textContent = `Total de naves: ${naves.length}`; //mostrar el total de naves en el hangar.       
 
 }
-
-
 renderHangar(); //llamar a la función para mostrar las tarjetas al cargar la página.

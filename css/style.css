@@ -28,6 +28,16 @@
     box-sizing: border-box;
 }
 
+.error {
+    color: red;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+input.invalido, select.invalido {
+    border: 1px solid red;
+}
+
 /* 🌌 FONDO STAR WARS */
 body {
     font-family: 'Orbitron';
