@@ -473,17 +473,23 @@ seleccionarBoton.forEach((boton) => {               //recorrer cada boton. prime
 
 
 
+//funcion para buscar elementos a tiempo real
 
+document.getElementById('buscar').addEventListener('input', function(e) {
+    const termino = e.target.value.toLowerCase(); 
+    const navesFiltradas = naves.filter(nave => nave.nombre.toLowerCase().includes(termino) || nave.tipo.toLowerCase().includes(termino));
+    renderHangar(navesFiltradas);
+}); 
 
 
 
 //funcion para generar las tarjetas de las naves.
-function renderHangar() {
+function renderHangar(navesFiltradas) {
 const contenedor= document.getElementById('contenedor-hangar')
 contenedor.innerHTML = ''; //limpiar el contenedor antes de agregar las tarjetas.
 
-for (let i = 0; i < naves.length; i++) { 
-    const nave = naves[i];
+for (let i = 0; i < navesFiltradas.length; i++) { 
+    const nave = navesFiltradas[i];
     const tarjeta = document.createElement('div'); //crear un div para cada tarjeta.
     tarjeta.classList.add('tarjeta'); //agregar la clase tarjeta al div.
     tarjeta.innerHTML = `
@@ -496,10 +502,10 @@ for (let i = 0; i < naves.length; i++) {
     contenedor.appendChild(tarjeta); //agregar la tarjeta al contenedor.
 
 }
-    document.getElementById('contador-hangar').textContent = `Total de naves: ${naves.length}`; //mostrar el total de naves en el hangar.       
+    document.getElementById('contador-hangar').textContent = `Total de naves: ${navesFiltradas.length}`; //mostrar el total de naves en el hangar.       
 
 }
-renderHangar(); //llamar a la función para mostrar las tarjetas al cargar la página.
+renderHangar(naves); //llamar a la función para mostrar las tarjetas al cargar la página.
 renderFormularioPiloto();
 renderFormularioMision();
 renderPilotos(); // carga los pilotos al abrir la página
@@ -524,3 +530,4 @@ document.getElementById('toggle-tema').addEventListener('click', function() {
 });
 
 iniciarTema();
+
