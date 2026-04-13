@@ -208,6 +208,7 @@ function eliminarPiloto(id) {
         localStorage.setItem('pilotos', JSON.stringify(pilotos));
         renderPilotos();
     }
+    
 }
 
 
