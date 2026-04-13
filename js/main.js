@@ -211,11 +211,6 @@ function eliminarPiloto(id) {
     
 }
 
-
-
-
-
-
 function editarPiloto(id) {
     const piloto = pilotos.find(p => p.id === id);
 
@@ -453,9 +448,6 @@ function renderFiltroMisiones() {
 renderFiltroMisiones();
 
 
-
-
-
 //ACTIVAR SESIONES
 
 const seleccionarBoton= document.querySelectorAll('[data-seccion]');
@@ -482,7 +474,23 @@ document.getElementById('buscar').addEventListener('input', function(e) {
     renderHangar(navesFiltradas);
 }); 
 
+function rellenarFiltroTipo() {
+    const filtroTipo = document.getElementById('filtro-tipo'); 
+    const tiposUnicos = [...new Set(naves.map(nave => nave.tipo))]; // crea un array con los tipos únicos de naves
+    tiposUnicos.forEach(tipo => {
+        const option = document.createElement('option');
+        option.value = tipo;
+        option.textContent = tipo;
+        filtroTipo.appendChild(option);
+    }
+    );
 
+    filtroTipo.addEventListener('change', function() {
+        const tipoSeleccionado = this.value;
+        const navesFiltradas = tipoSeleccionado === 'todas' ? naves : naves.filter(nave => nave.tipo === tipoSeleccionado);
+        renderHangar(navesFiltradas);
+    });
+}
 
 //funcion para generar las tarjetas de las naves.
 function renderHangar(navesFiltradas) {
@@ -506,12 +514,6 @@ for (let i = 0; i < navesFiltradas.length; i++) {
     document.getElementById('contador-hangar').textContent = `Total de naves: ${navesFiltradas.length}`; //mostrar el total de naves en el hangar.       
 
 }
-renderHangar(naves); //llamar a la función para mostrar las tarjetas al cargar la página.
-renderFormularioPiloto();
-renderFormularioMision();
-renderPilotos(); // carga los pilotos al abrir la página
-renderKanban();  // carga las misiones al abrir la página
-
 
 
 function iniciarTema() {
@@ -530,5 +532,11 @@ document.getElementById('toggle-tema').addEventListener('click', function() {
     this.textContent = estaClaro ? '🌙 Modo oscuro' : '☀️ Modo claro';
 });
 
+renderHangar(naves); //llamar a la función para mostrar las tarjetas al cargar la página.
+rellenarFiltroTipo();   
+renderFormularioPiloto();
+renderFormularioMision();
+renderPilotos(); // carga los pilotos al abrir la página
+renderKanban();  // carga las misiones al abrir la página
 iniciarTema();
 
