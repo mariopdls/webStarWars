@@ -21,6 +21,7 @@
             <li><button data-seccion="panel">Panel</button></li>
         </ul>
     </nav>
+
     <main>
         <section id="hangar" class="seccion activa">
             <h2>🚀 Hangar de Naves</h2>
@@ -28,8 +29,10 @@
             <div id="controles-hangar"> 
                 <input type="search" id= "buscar" placeholder="Busca aquí...">
                 <select id="filtro-tipo">
-                  <option value="todas">Todos los tipos de naves</option>
+                <option value="todas">Todos los tipos de naves</option>
                 </select>
+                <button id="ordenar-velocidad">Ordenar por velocidad</button>
+
             </div>
 
             <p id="contador-hangar"></p>

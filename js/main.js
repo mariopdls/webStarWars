@@ -487,6 +487,22 @@ document.getElementById('toggle-tema').addEventListener('click', function() {
     this.textContent = estaClaro ? '🌙 Modo oscuro' : '☀️ Modo claro';
 });
 
+
+//funcion para ordenar por velocidad de mayor a menor o al reves.
+let orden = true;
+
+document.getElementById('ordenar-velocidad').addEventListener('click', function() {
+     orden = !orden; // niega lo existente, si es true pasa a false y viceversa, así cada vez que se pulse el botón se alterna entre ambos .
+    const navesOrdenadas = [...naves].sort((a, b) => {
+        if (orden) {
+            return a.velocidad - b.velocidad;
+        } else {
+            return b.velocidad - a.velocidad;
+        }
+    });
+    renderHangar(navesOrdenadas);
+});
+
 renderHangar(naves); //llamar a la función para mostrar las tarjetas al cargar la página.
 rellenarFiltroTipo();   
 renderFormularioPiloto();
