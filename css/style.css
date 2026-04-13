@@ -197,17 +197,19 @@ h2 {
     text-shadow: 0 0 2px var(--color-primario);
     font-family: 'StarJedi2';
     letter-spacing: 3px;
+    text-align: center;
 }
 
 /* GRID */
 #contenedor-hangar,
 #lista-pilotos {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 280px));
     gap: 1rem;
 }
 
 /* TARJETAS */
+
 .tarjeta {
     background: var(--color-tarjeta);
     border: 1px solid var(--color-borde);
@@ -219,6 +221,24 @@ h2 {
 .tarjeta:hover {
     transform: translateY(-5px) scale(1.02);
     box-shadow: 0 0 15px rgba(255, 232, 31, 0.4);
+}
+
+.tarjeta:not(.desaparece) {
+    animation: aparece 0.3s ease;
+}
+
+.tarjeta.desaparece {
+    animation: desaparece 1s ease forwards;
+}
+
+@keyframes desaparece {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-20px); }
+}
+
+@keyframes aparece {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* BOTONES */
@@ -242,6 +262,15 @@ input, select {
     margin-bottom: 0.5rem;
     border-radius: 6px;
     border: none;
+}
+
+
+#contenedor-formulario-piloto,
+#contenedor-formulario-mision,
+#filtros-misiones {
+    max-width: 1100px;
+    margin: 0 auto;
+    margin-bottom: 1rem;
 }
 
 /* KANBAN */

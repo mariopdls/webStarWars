@@ -343,6 +343,7 @@ function renderKanban(filtro = 'todas') {
         const piloto = pilotos.find(p => p.id == mision.piloto);
         const tarjeta = document.createElement('div');
         tarjeta.classList.add('tarjeta');
+        tarjeta.dataset.id = mision.id
 
         tarjeta.innerHTML = `
             <h3>${mision.nombre}</h3>
@@ -402,10 +403,16 @@ function retrocederMision(id) {
 function eliminarMision(id) {
     const confirmacion = confirm('¿Seguro que quieres eliminar esta misión?');
     if (confirmacion) {
-        //Guarda todas las misiones menos la que se quiere borrar
-        misiones = misiones.filter(m => m.id !== id);
-        localStorage.setItem('misiones', JSON.stringify(misiones));
-        renderKanban();
+        // Busca solo la tarjeta que queremos borrar
+        const tarjeta = document.querySelector(`.tarjeta[data-id="${id}"]`);
+        tarjeta.classList.add('desaparece');
+
+        // Espera a que termine la animación y luego borra
+        setTimeout(() => {
+            misiones = misiones.filter(m => m.id !== id);
+            localStorage.setItem('misiones', JSON.stringify(misiones));
+            renderKanban();
+        }, 600);
     }
 }
 
