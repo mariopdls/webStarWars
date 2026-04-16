@@ -505,6 +505,7 @@ for (let i = 0; i < navesFiltradas.length; i++) {
         <p>Estado: ${nave.estado}</p>
     `;     //   agregar el contenido de la tarjeta con las propiedades de la nave.
     contenedor.appendChild(tarjeta); //agregar la tarjeta al contenedor.
+    tarjeta.addEventListener('click', () => abrirModal(nave));
 
 }
     document.getElementById('contador-hangar').textContent = `Total de naves: ${navesFiltradas.length}`; //mostrar el total de naves en el hangar.       
@@ -572,6 +573,7 @@ const naveMasRapida = naves.reduce((max, nave) => {
         return max;
     }
 });
+
 /* PILOTOS */
 
 //pilotos totales
@@ -682,3 +684,24 @@ document.getElementById('btn-exportar').addEventListener('click', function() {
     a.click();
     URL.revokeObjectURL(url);
 }   );
+
+
+//abrir modal oculto al clickar la nave
+
+function abrirModal(nave) {
+    const modal = document.getElementById('modal');
+    const contenido = document.getElementById('modal-contenido');
+    contenido.innerHTML = `
+        <h2>${nave.nombre} ${nave.emojiRepresentativo}</h2>
+        <p>Tipo: ${nave.tipo}</p>
+        <p>Velocidad: ${nave.velocidad} km/h</p>
+        <p>Tripulación: ${nave.tripulacion}</p>
+        <p>Estado: ${nave.estado}</p>
+    `;
+    modal.classList.remove('oculto');
+}     
+
+              //cerrar el modal al hacer click en el boton de cerrar
+    document.getElementById('modal-cerrar').addEventListener('click', () => {
+        document.getElementById('modal').classList.add('oculto');
+    });
