@@ -413,6 +413,9 @@ seleccionarBoton.forEach((boton) => {               //recorrer cada boton. prime
         for (let i = 0; i < seleccionarNav.length; i++) {
             seleccionarNav[i].classList.remove('activa');
         }
+        if (boton.dataset.seccion === 'panel') {
+              calcularDashboard();
+            }
         document.getElementById(boton.dataset.seccion) 
         .classList.add('activa');                           
 
@@ -502,6 +505,108 @@ document.getElementById('ordenar-velocidad').addEventListener('click', function(
     });
     renderHangar(navesOrdenadas);
 });
+
+function calcularDashboard() {
+
+const contenedor = document.getElementById('contenedor-estadisticas');
+contenedor.innerHTML = '';
+    
+/* NAVES */
+
+//calcular el número total de naves
+const totalNaves = naves.length;   
+
+// naves operativas
+const navesOperativas = naves.filter(nave => nave.estado === 'operativa').length;
+
+// naves en estado destruida
+const navesDestruidas = naves.filter(nave => nave.estado === 'destruida').length;
+
+//naves en relación 
+const navesRep = naves.filter(nave => nave.estado === 'reparacion').length;
+
+//nave mas rapida
+
+const naveMasRapida = naves.reduce((max, nave) => {
+    if (nave.velocidad > max.velocidad) {
+        return nave;    
+    } else {
+        return max;
+    }
+});
+/* PILOTOS */
+
+//pilotos totales
+const pilotosTotales = pilotos.length;
+//pilotos activos
+const pilotosActivos = pilotos.filter(p => p.estado === 'activo').length;
+
+//pilotos heridos
+const pilotosHeridos = pilotos.filter(p => p.estado === 'herido').length;
+
+//pilotos KIA
+const pilotosKIA = pilotos.filter(p => p.estado === 'KIA').length;
+
+//piloto con mas victorias
+    if (pilotos.length === 0) return;
+const pilotoMasVictorias = pilotos.reduce((max, piloto) => {
+    if (piloto.victorias > max.victorias) {
+        return piloto;
+    } else {
+        return max;
+    }
+});
+
+/* MISIONES */
+
+//misiones totales
+const misionesTotales = misiones.length;    
+//misiones pendientes
+const misionesPendientes = misiones.filter(m => m.columna === 'pendiente').length;
+//misiones en curso
+const misionesEnCurso = misiones.filter(m => m.columna === 'en-curso').length;  
+//misiones completadas      
+const misionesCompletadas = misiones.filter(m => m.columna === 'completada').length;
+
+
+// contenedor de naves
+const tarjetaNaves = document.createElement('div');
+tarjetaNaves.classList.add('estadistica');
+tarjetaNaves.innerHTML = `
+    <h3>🛸 Naves</h3>
+    <p>Total: ${totalNaves}</p>
+    <p>Operativas: ${navesOperativas}</p>
+    <p>Destruidas: ${navesDestruidas}</p>
+    <p>En reparación: ${navesRep}</p>
+    <p>Más rápida: ${naveMasRapida.nombre} (${naveMasRapida.velocidad} km/h)</p>
+`;
+contenedor.appendChild(tarjetaNaves);
+
+//contenedor de pilotos 
+const tarjetaPilotos = document.createElement('div');
+tarjetaPilotos.classList.add('estadistica');
+tarjetaPilotos.innerHTML = `   
+    <h3>👨‍✈️ Pilotos</h3>
+    <p>Total: ${pilotosTotales}</p>
+    <p>Activos: ${pilotosActivos}</p>   
+    <p>Heridos: ${pilotosHeridos}</p>
+    <p>KIA: ${pilotosKIA}</p>
+    <p>Con más victorias: ${pilotoMasVictorias.nombre} (${pilotoMasVictorias.victorias} victorias)</p>
+`;
+contenedor.appendChild(tarjetaPilotos);
+
+//contenedor de misiones
+const tarjetaMisiones = document.createElement('div');
+tarjetaMisiones.classList.add('estadistica');
+tarjetaMisiones.innerHTML = `
+    <h3>🚀 Misiones</h3>   
+    <p>Total: ${misionesTotales}</p>    
+    <p>Pendientes: ${misionesPendientes}</p>
+    <p>En curso: ${misionesEnCurso}</p>
+    <p>Completadas: ${misionesCompletadas}</p>
+`;
+contenedor.appendChild(tarjetaMisiones);
+}       
 
 renderHangar(naves); //llamar a la función para mostrar las tarjetas al cargar la página.
 rellenarFiltroTipo();   
