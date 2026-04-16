@@ -134,6 +134,8 @@ function renderPilotos() {
     pilotos.forEach(piloto => {
         const tarjeta = document.createElement('div');
         tarjeta.classList.add('tarjeta');
+        //Le crea un id al piloto
+        tarjeta.dataset.id = piloto.id;
 
         tarjeta.innerHTML = `
             <h3>✈️ ${piloto.nombre}</h3>
@@ -157,13 +159,16 @@ function renderPilotos() {
 
 function eliminarPiloto(id) {
     const confirmacion = confirm('¿Seguro que quieres eliminar este piloto?');
-    
     if (confirmacion) {
-        pilotos = pilotos.filter(piloto => piloto.id !== id); // recorre todos los pilotos que no sean el que queremos borrar y los guarda
-        localStorage.setItem('pilotos', JSON.stringify(pilotos));
-        renderPilotos();
+        const tarjeta = document.querySelector(`.tarjeta[data-id="${id}"]`);
+        tarjeta.classList.add('desaparece');
+
+        setTimeout(() => {
+            pilotos = pilotos.filter(piloto => piloto.id !== id);
+            localStorage.setItem('pilotos', JSON.stringify(pilotos));
+            renderPilotos();
+        }, 1000);
     }
-    
 }
 
 function editarPiloto(id) {
@@ -346,31 +351,40 @@ function renderKanban(filtro = 'todas') {
 
 
 function avanzarMision(id) {
-    // La pasa a la siguiente columna
-    misiones = misiones.map(m => {
-        if (m.id === id) {
-            if (m.columna === 'pendiente') m.columna = 'en-curso';
-            else if (m.columna === 'en-curso') m.columna = 'completada';
-        }
-        return m;
-    });
-    localStorage.setItem('misiones', JSON.stringify(misiones));
-    renderKanban();
+    const tarjeta = document.querySelector(`.tarjeta[data-id="${id}"]`);
+    tarjeta.classList.add('mover');
+
+    setTimeout(() => {
+        misiones = misiones.map(m => {
+            if (m.id === id) {
+                if (m.columna === 'pendiente') m.columna = 'en-curso';
+                else if (m.columna === 'en-curso') m.columna = 'completada';
+            }
+            return m;
+        });
+        localStorage.setItem('misiones', JSON.stringify(misiones));
+        renderKanban();
+    }, 400);
 }
 
 
 
 
 function retrocederMision(id) {
-    misiones = misiones.map(m => {
-        if (m.id === id) {
-            if (m.columna === 'en-curso') m.columna = 'pendiente';
-            else if (m.columna === 'completada') m.columna = 'en-curso';
-        }
-        return m;
-    });
-    localStorage.setItem('misiones', JSON.stringify(misiones));
-    renderKanban();
+    const tarjeta = document.querySelector(`.tarjeta[data-id="${id}"]`);
+    tarjeta.classList.add('mover');
+
+    setTimeout(() => {
+        misiones = misiones.map(m => {
+            if (m.id === id) {
+                if (m.columna === 'en-curso') m.columna = 'pendiente';
+                else if (m.columna === 'completada') m.columna = 'en-curso';
+            }
+            return m;
+        });
+        localStorage.setItem('misiones', JSON.stringify(misiones));
+        renderKanban();
+    }, 400);
 }
 
 
