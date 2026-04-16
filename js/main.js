@@ -308,7 +308,31 @@ function renderKanban(filtro = 'todas') {
         `;
 
         document.querySelector(`#${mision.columna} .tarjetas`).appendChild(tarjeta);
+
+        //dragstart
+        tarjeta.setAttribute('draggable', true);   
+        tarjeta.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', mision.id);
+        });
+        
+        const columnas = document.querySelectorAll('.columna');    
+            columnas.forEach(columna => {
+                columna.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                });
+                columna.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    const idMision = e.dataTransfer.getData('text/plain');
+                    const misionArrastrada = misiones.find(m => m.id == idMision);
+                    if (misionArrastrada) {
+                        misionArrastrada.columna = columna.id;
+                        localStorage.setItem('misiones', JSON.stringify(misiones));
+                        renderKanban();
+                    }
+                });   
+            });
     });
+
 
     actualizarContadores();
 }
@@ -615,7 +639,7 @@ if (misionesTotales > 0) {
     contenedor.appendChild(porcentajeElement);
     document.getElementById('barra-progreso').style.width = `${porcentajeMisionesCompletadas}%`;
     document.getElementById('label-progreso').textContent = `Misiones completadas: ${porcentajeMisionesCompletadas.toFixed(0)}%`;
-}
+    }
 }       
 
 
@@ -627,3 +651,20 @@ renderPilotos(); // carga los pilotos al abrir la página
 renderKanban();  // carga las misiones al abrir la página
 iniciarTema();
 
+
+//boton exportar a json
+document.getElementById('btn-exportar').addEventListener('click', function() {   
+    const data = {
+        naves,
+        pilotos,
+        misiones
+    };
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'starwars_data.json';
+    a.click();
+    URL.revokeObjectURL(url);
+}   );

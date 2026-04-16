@@ -378,3 +378,22 @@ footer {
     width: 0%;
     transition: width 0.5s ease;
 }
+
+#btn-exportar {
+    margin-top: 2rem;
+    background: transparent;
+    border: 1px solid var(--color-primario);
+    color: var(--color-primario);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    letter-spacing: 1px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+#contenedor-estadisticas p {
+    margin-top: 1.5rem;
+}
