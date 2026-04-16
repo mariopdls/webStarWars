@@ -606,7 +606,18 @@ tarjetaMisiones.innerHTML = `
     <p>Completadas: ${misionesCompletadas}</p>
 `;
 contenedor.appendChild(tarjetaMisiones);
+
+
+if (misionesTotales > 0) {
+    const porcentajeMisionesCompletadas = ((misionesCompletadas / misionesTotales) * 100);
+    const porcentajeElement = document.createElement('p');
+    porcentajeElement.textContent = `Porcentaje de misiones completadas: ${porcentajeMisionesCompletadas.toFixed(2)}%`;
+    contenedor.appendChild(porcentajeElement);
+    document.getElementById('barra-progreso').style.width = `${porcentajeMisionesCompletadas}%`;
+    document.getElementById('label-progreso').textContent = `Misiones completadas: ${porcentajeMisionesCompletadas.toFixed(0)}%`;
+}
 }       
+
 
 renderHangar(naves); //llamar a la función para mostrar las tarjetas al cargar la página.
 rellenarFiltroTipo();   
