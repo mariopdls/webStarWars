@@ -1,14 +1,14 @@
 let naves = [
-    { id: 1, nombre: 'X-Wing', tipo: 'Caza', velocidad: 2000, tripulacion: 1, estado: 'operativa', emojiRepresentativo: '🚀' },
-    { id: 2, nombre: 'TIE Fighter', tipo: 'Caza', velocidad: 1500, tripulacion: 1, estado: 'operativa', emojiRepresentativo: '🛸' },
-    { id: 3, nombre: 'Millennium Falcon', tipo: 'Transporte', velocidad: 1050, tripulacion: 4, estado: 'operativa', emojiRepresentativo: '🛳️' },
-    { id: 4, nombre: 'Star Destroyer', tipo: 'Destructor', velocidad: 975, tripulacion: 47000, estado: 'operativa', emojiRepresentativo: '🚢' },
-    { id: 5, nombre: 'Death Star', tipo: 'Estrella de la Muerte', velocidad: 0, tripulacion: 1000000, estado: 'destruida', emojiRepresentativo: '💥' },
-    { id: 6, nombre: 'TIE Interceptor', tipo: 'Caza', velocidad: 1700, tripulacion: 1, estado: 'operativa', emojiRepresentativo: '🛸' },
-    { id: 7, nombre: 'Slave I', tipo: 'Caza', velocidad: 1200, tripulacion: 1, estado: 'operativa', emojiRepresentativo: '🛰️' },
-    { id: 8, nombre: 'Y-Wing', tipo: 'Bombardero', velocidad: 1500, tripulacion: 2, estado: 'operativa', emojiRepresentativo: '🦅' },
-    { id: 9, nombre: 'A-Wing', tipo: 'Caza', velocidad: 1900, tripulacion: 1, estado: 'operativa', emojiRepresentativo: '🦆' },
-    { id: 10, nombre: 'B-Wing', tipo: 'Caza', velocidad: 1600, tripulacion: 1, estado: 'operativa', emojiRepresentativo: '🦇' }
+    { id: 1, nombre: 'X-Wing', tipo: 'Caza', velocidad: 2000, tripulacion: 1, estado: 'operativa', emojiRepresentativo: '🚀', imagen: 'images/nave1.png' },
+    { id: 2, nombre: 'TIE Fighter', tipo: 'Caza', velocidad: 1500, tripulacion: 1, estado: 'operativa', emojiRepresentativo: '🛸', imagen: 'images/nave2.png' },
+    { id: 3, nombre: 'Millennium Falcon', tipo: 'Transporte', velocidad: 1050, tripulacion: 4, estado: 'operativa', emojiRepresentativo: '🛳️', imagen: 'images/nave3.png' },
+    { id: 4, nombre: 'Star Destroyer', tipo: 'Destructor', velocidad: 975, tripulacion: 47000, estado: 'operativa', emojiRepresentativo: '🚢', imagen: 'images/nave4.png' },
+    { id: 5, nombre: 'Death Star', tipo: 'Estrella de la Muerte', velocidad: 0, tripulacion: 1000000, estado: 'destruida', emojiRepresentativo: '💥', imagen: 'images/nave5.png' },
+    { id: 6, nombre: 'TIE Interceptor', tipo: 'Caza', velocidad: 1700, tripulacion: 1, estado: 'operativa', emojiRepresentativo: '🛸', imagen: 'images/nave6.png' },
+    { id: 7, nombre: 'Slave I', tipo: 'Caza', velocidad: 1200, tripulacion: 1, estado: 'operativa', emojiRepresentativo: '🛰️', imagen: 'images/nave7.png' },
+    { id: 8, nombre: 'Y-Wing', tipo: 'Bombardero', velocidad: 1500, tripulacion: 2, estado: 'operativa', emojiRepresentativo: '🦅', imagen: 'images/nave8.png' },
+    { id: 9, nombre: 'A-Wing', tipo: 'Caza', velocidad: 1900, tripulacion: 1, estado: 'operativa', emojiRepresentativo: '🦆', imagen: 'images/nave9.png' },
+    { id: 10, nombre: 'B-Wing', tipo: 'Caza', velocidad: 1600, tripulacion: 1, estado: 'operativa', emojiRepresentativo: '🦇', imagen: 'images/nave10.png' }
 ];
 
 // funcion que muestra las secciones al hacer click en el boton correspondiente.
@@ -143,8 +143,8 @@ function renderPilotos() {
             <p>Nave: ${naves.find(n => n.id == piloto.nave)?.nombre || 'Sin nave'}</p>
             <p>Victorias: ${piloto.victorias}</p>
             <p>Estado: ${piloto.estado}</p>
-            <button onclick="editarPiloto(${piloto.id})">✏️ Editar</button>
-            <button onclick="eliminarPiloto(${piloto.id})">🗑️ Eliminar</button>
+            <button onclick="editarPiloto(${piloto.id})" class="btn-editar">✏️ Editar</button>
+            <button onclick="eliminarPiloto(${piloto.id})" class="btn-eliminar">🗑️ Eliminar</button>
         `;
 
         contenedor.appendChild(tarjeta);
@@ -307,9 +307,9 @@ function renderKanban(filtro = 'todas') {
             <p>Piloto: ${piloto ? piloto.nombre : 'Sin piloto'}</p>
             <p>Dificultad: ${mision.dificultad}</p>
             <p>Fecha: ${mision.fecha}</p>
-            ${mision.columna !== 'pendiente' ? `<button onclick="retrocederMision(${mision.id})">⬅️ Retroceder</button>` : ''}
-            ${mision.columna !== 'completada' ? `<button onclick="avanzarMision(${mision.id})">➡️ Avanzar</button>` : ''}
-            <button onclick="eliminarMision(${mision.id})">🗑️ Eliminar</button>
+            ${mision.columna !== 'pendiente' ? `<button onclick="retrocederMision(${mision.id})" class="btn-retroceder">⬅️ Retroceder</button>` : ''}
+            ${mision.columna !== 'completada' ? `<button onclick="avanzarMision(${mision.id})" class="btn-avanzar">➡️ Avanzar</button>` : ''}
+            <button onclick="eliminarMision(${mision.id})" class="btn-eliminar">🗑️ Eliminar</button>
         `;
 
         document.querySelector(`#${mision.columna} .tarjetas`).appendChild(tarjeta);
@@ -498,12 +498,8 @@ for (let i = 0; i < navesFiltradas.length; i++) {
     const tarjeta = document.createElement('div'); //crear un div para cada tarjeta.
     tarjeta.classList.add('tarjeta'); //agregar la clase tarjeta al div.
     tarjeta.innerHTML = `
-        <h3>${nave.nombre} ${nave.emojiRepresentativo}</h3>
-        <p>Tipo: ${nave.tipo}</p>
-        <p>Velocidad: ${nave.velocidad} km/h</p>
-        <p>Tripulación: ${nave.tripulacion}</p>
-        <p>Estado: ${nave.estado}</p>
-    `;     //   agregar el contenido de la tarjeta con las propiedades de la nave.
+    <img src="${nave.imagen}" alt="${nave.nombre}" class="imagen-nave">
+`;   
     contenedor.appendChild(tarjeta); //agregar la tarjeta al contenedor.
     tarjeta.addEventListener('click', () => abrirModal(nave));
 

@@ -1,11 +1,10 @@
-/* FUENTE */
+/* FUENTES */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
 @font-face {
     font-family: 'StarJedi';
     src: url(../fonts/Starjedi.ttf) format('truetype');
 }
-
 
 @font-face {
     font-family: 'StarJedi2';
@@ -38,12 +37,28 @@ input.invalido, select.invalido {
     border: 1px solid red;
 }
 
-/* 🌌 FONDO STAR WARS */
+/* BODY Y FONDOS */
 body {
     font-family: 'Orbitron';
     color: var(--color-texto);
     min-height: 100vh;
     position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url("https://images.unsplash.com/photo-1462331940025-496dfbfc7564") center/cover no-repeat;
+    z-index: -2;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: var(--color-fondo-overlay);
+    z-index: -1;
 }
 
 body.claro {
@@ -81,47 +96,6 @@ body.claro .columna {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* Boton tema oscuro/claro */
-
-#toggle-tema {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: transparent;
-    border: 1px solid var(--color-primario);
-    color: var(--color-primario);
-    padding: 0.4rem 1rem;
-    cursor: pointer;
-    transition: 0.3s;
-    letter-spacing: 1px;
-    font-size: 0.85rem;
-}
-
-#toggle-tema:hover {
-    background: var(--color-primario);
-    color: black;
-    box-shadow: 0 0 15px var(--color-primario);
-}
-
-/* Imagen de fondo */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: url("https://images.unsplash.com/photo-1462331940025-496dfbfc7564")
-                center/cover no-repeat;
-    z-index: -2;
-}
-
-/* Capa oscura encima para que el texto se lea bien */
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: var(--color-fondo-overlay);
-    z-index: -1;
-}
-
 /* HEADER */
 header {
     display: flex;
@@ -142,6 +116,14 @@ header h1 {
     font-size: 1.3rem;
 }
 
+.logo {
+    width: 20em;
+    height: 5em;
+    max-width: 400px;
+    display: block;
+    margin-top: 1em;
+}
+
 /* NAV */
 nav {
     background: rgba(0,0,0,0.6);
@@ -154,9 +136,10 @@ nav ul {
     display: flex;
     gap: 1.5rem;
     padding: 0;
-    list-style: none;    
+    list-style: none;
     margin-right: 10em;
-    margin-top: 2em;}
+    margin-top: 2em;
+}
 
 nav button {
     background: transparent;
@@ -174,6 +157,27 @@ nav button:hover {
     box-shadow: 0 0 10px var(--color-primario);
 }
 
+/* BOTON TEMA */
+#toggle-tema {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: 1px solid var(--color-primario);
+    color: var(--color-primario);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+}
+
+#toggle-tema:hover {
+    background: var(--color-primario);
+    color: black;
+    box-shadow: 0 0 15px var(--color-primario);
+}
+
 /* MAIN */
 main {
     padding: 1.5rem;
@@ -189,20 +193,6 @@ main {
     display: block;
 }
 
-.logo {
-    width: 20em;
-    height: 5em;
-    max-width: 400px;
-    display: block;
-    margin-top: 1em;
-
-}
-
-@keyframes fade {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
 /* TITULOS */
 h2 {
     margin-bottom: 1rem;
@@ -213,12 +203,29 @@ h2 {
     text-align: center;
 }
 
-/* GRID */
+/* GRID Y CONTENEDORES */
 #contenedor-hangar,
 #lista-pilotos {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 280px));
     gap: 1rem;
+}
+
+#contenedor-formulario-piloto,
+#contenedor-formulario-mision,
+#filtros-misiones {
+    max-width: 1100px;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+}
+
+/* HANGAR */
+#contador-hangar {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    font-size: 25px;
+    padding-bottom: 15px;
 }
 
 #ordenar-velocidad {
@@ -230,9 +237,9 @@ h2 {
     cursor: pointer;
     transition: 0.3s;
     letter-spacing: 1px;
-}   
-/* TARJETAS */
+}
 
+/* TARJETAS */
 .tarjeta {
     background: var(--color-tarjeta);
     border: 1px solid var(--color-borde);
@@ -255,30 +262,46 @@ h2 {
     animation: desaparece 1s ease forwards;
 }
 
-@keyframes desaparece {
-    from { opacity: 1; transform: translateY(0); }
-    to { opacity: 0; transform: translateY(-20px); }
-}
-
-@keyframes aparece {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
 .tarjeta.mover {
     animation: mover 0.4s ease forwards;
 }
 
-@keyframes mover {
-    0% { opacity: 1; transform: translateX(0); }
-    50% { opacity: 0; transform: translateX(30px); }
-    100% { opacity: 0; transform: translateX(30px); }
+/* IMAGENES DE NAVES */
+.imagen-nave {
+    width: 80%;
+    height: 130px;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
 }
 
 /* BOTONES */
 button {
     border-radius: 6px;
     font-weight: bold;
+}
+
+.btn-editar,
+.btn-eliminar,
+.btn-avanzar,
+.btn-retroceder {
+    background: transparent;
+    border: 1px solid var(--color-primario);
+    color: var(--color-primario);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.9rem;
+    margin: 0.2rem;
+}
+
+.btn-editar:hover,
+.btn-eliminar:hover,
+.btn-avanzar:hover,
+.btn-retroceder:hover {
+    background: var(--color-primario);
+    color: black;
+    box-shadow: 0 0 10px var(--color-primario);
 }
 
 /* FORMULARIOS */
@@ -298,29 +321,13 @@ input, select {
     border: none;
 }
 
-
-#contenedor-formulario-piloto,
-#contenedor-formulario-mision,
-#filtros-misiones {
-    max-width: 1100px;
-    margin: 0 auto;
-    margin-bottom: 1rem;
-}
-
 /* KANBAN */
 #tablero-kanban {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
 }
-/* HANGAR */
-#contador-hangar {
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    opacity: 0.8;
-    font-size: 25px;
-    padding-bottom: 15px;
-}
+
 .columna {
     flex: 1;
     min-width: 260px;
@@ -355,26 +362,6 @@ input, select {
     box-shadow: 0 0 10px var(--color-primario);
 }
 
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 1rem;
-    margin-top: 2rem;
-    opacity: 0.7;
-}
-
-/* RESPONSIVE */
-@media (max-width: 600px) {
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #tablero-kanban {
-        flex-direction: column;
-    }
-}
-
 .barra-fondo {
     background: #333;
     border-radius: 4px;
@@ -402,13 +389,55 @@ footer {
     display: block;
     margin-left: auto;
     margin-right: auto;
-
 }
 
 #contenedor-estadisticas p {
     margin-top: 1.5rem;
 }
 
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    opacity: 0.7;
+}
+
+/* ANIMACIONES */
+@keyframes fade {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes aparece {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes desaparece {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-20px); }
+}
+
+@keyframes mover {
+    0% { opacity: 1; transform: translateX(0); }
+    50% { opacity: 0; transform: translateX(30px); }
+    100% { opacity: 0; transform: translateX(30px); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #tablero-kanban {
+        flex-direction: column;
+    }
+}
+
+/* MODALES */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -430,4 +459,19 @@ footer {
 
 .oculto {
     display: none !important;
+}
+
+#modal-contenido p {
+    margin-bottom: 0.5rem;
+}
+
+#modal-cerrar {
+    margin-top: 1rem;
+    background: transparent;
+    border: 1px solid var(--color-primario);
+    color: var(--color-primario);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    letter-spacing: 1px;
 }
