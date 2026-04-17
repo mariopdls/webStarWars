@@ -284,6 +284,23 @@ function addMision(e) {
 }
 
 
+// Se registra UNA sola vez al cargar la página, fuera de renderKanban
+document.querySelectorAll('.columna').forEach(columna => {
+    columna.addEventListener('dragover', (e) => {
+        e.preventDefault();
+    });
+    columna.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const idMision = e.dataTransfer.getData('text/plain');
+        const misionArrastrada = misiones.find(m => m.id == idMision);
+        if (misionArrastrada) {
+            misionArrastrada.columna = columna.id;
+            localStorage.setItem('misiones', JSON.stringify(misiones));
+            renderKanban();
+        }
+    });
+});
+
 function renderKanban(filtro = 'todas') {
     document.querySelector('#pendiente .tarjetas').innerHTML = '';
     document.querySelector('#en-curso .tarjetas').innerHTML = '';
@@ -294,7 +311,7 @@ function renderKanban(filtro = 'todas') {
         ? misiones 
         : misiones.filter(m => m.dificultad === filtro);
 
-        //recorre las misiones con esa dificultad y las muestra
+    //recorre las misiones con esa dificultad y las muestra
     misionesFiltradas.forEach(mision => {
         const piloto = pilotos.find(p => p.id == mision.piloto);
         const tarjeta = document.createElement('div');
@@ -314,34 +331,15 @@ function renderKanban(filtro = 'todas') {
 
         document.querySelector(`#${mision.columna} .tarjetas`).appendChild(tarjeta);
 
-        //dragstart
+        // dragstart sí va aquí porque cada tarjeta nueva necesita el suyo
         tarjeta.setAttribute('draggable', true);   
         tarjeta.addEventListener('dragstart', (e) => {
             e.dataTransfer.setData('text/plain', mision.id);
         });
-        
-        const columnas = document.querySelectorAll('.columna');    
-            columnas.forEach(columna => {
-                columna.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                });
-                columna.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    const idMision = e.dataTransfer.getData('text/plain');
-                    const misionArrastrada = misiones.find(m => m.id == idMision);
-                    if (misionArrastrada) {
-                        misionArrastrada.columna = columna.id;
-                        localStorage.setItem('misiones', JSON.stringify(misiones));
-                        renderKanban();
-                    }
-                });   
-            });
     });
-
 
     actualizarContadores();
 }
-
 //Si no es pendiente crear el boton de retroceder
 //${mision.columna !== 'pendiente' ? `<button onclick="retrocederMision(${mision.id})">⬅️ Retroceder</button>` : ''}
 //Si no es completada crea el boton de avanzar
