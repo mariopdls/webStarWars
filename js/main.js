@@ -582,14 +582,19 @@ const pilotosHeridos = pilotos.filter(p => p.estado === 'herido').length;
 const pilotosKIA = pilotos.filter(p => p.estado === 'KIA').length;
 
 //piloto con mas victorias
-    if (pilotos.length === 0) return;
-const pilotoMasVictorias = pilotos.reduce((max, piloto) => {
-    if (piloto.victorias > max.victorias) {
-        return piloto;
-    } else {
-        return max;
-    }
-});
+let pilotoMasVictorias;
+
+if (pilotos.length === 0) {
+    pilotoMasVictorias = { nombre: 'Sin pilotos', victorias: 0 };
+} else {
+    pilotoMasVictorias = pilotos.reduce((max, piloto) => {
+        if (piloto.victorias > max.victorias) {
+            return piloto;
+        } else {
+            return max;
+        }
+    });
+}
 
 /* MISIONES */
 
