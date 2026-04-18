@@ -284,6 +284,8 @@ function addMision(e) {
 }
 
 
+
+
 // Se registra UNA sola vez al cargar la página, fuera de renderKanban
 document.querySelectorAll('.columna').forEach(columna => {
     columna.addEventListener('dragover', (e) => {
@@ -441,20 +443,25 @@ renderFiltroMisiones();
 
 //ACTIVAR SESIONES
 
-const seleccionarBoton= document.querySelectorAll('[data-seccion]');
-const seleccionarNav= document.querySelectorAll('.seccion');
+const seleccionarBoton = document.querySelectorAll('[data-seccion]');
+const seleccionarNav = document.querySelectorAll('.seccion');
 
-seleccionarBoton.forEach((boton) => {               //recorrer cada boton. primero una lambda y después hice un for    
-    boton.addEventListener('click', function() {    // indexado, más entendible que con dos lambdas.
+seleccionarBoton.forEach((boton) => {
+    boton.addEventListener('click', function() {
         for (let i = 0; i < seleccionarNav.length; i++) {
             seleccionarNav[i].classList.remove('activa');
         }
-        if (boton.dataset.seccion === 'panel') {
-              calcularDashboard();
-            }
-        document.getElementById(boton.dataset.seccion) 
-        .classList.add('activa');                           
+        document.getElementById(boton.dataset.seccion).classList.add('activa');
 
+        // Regenerar formulario de misiones al entrar en esa sección
+        if (boton.dataset.seccion === 'misiones') {
+            renderFormularioMision();
+        }
+
+        // Recalcular dashboard al entrar en panel
+        if (boton.dataset.seccion === 'panel') {
+            calcularDashboard();
+        }
     });
 });
 
