@@ -138,7 +138,7 @@ nav ul {
 nav button {
     background: transparent;
     border: 1px solid #ffe81f;
-    color: #ffe81f;
+    color: #ffffff;
     padding: 0.7rem 1.8rem;
     cursor: pointer;
     transition: 0.3s;
@@ -190,11 +190,14 @@ main {
 /* TITULOS */
 h2 {
     margin-bottom: 1rem;
-    color: #ffe81f;
-    text-shadow: 0 0 2px #ffe81f;
+    color: #ffffff;
     font-family: 'StarJedi2';
     letter-spacing: 3px;
     text-align: center;
+}
+
+label {
+    color: #ffffff;
 }
 
 /* GRID Y CONTENEDORES */
@@ -217,16 +220,17 @@ h2 {
 #contador-hangar {
     margin-top: 0.5rem;
     font-size: 0.9rem;
-    opacity: 0.8;
+    opacity: 1;
     font-size: 25px;
     padding-bottom: 15px;
+    color: #ffffff;
 }
 
 #ordenar-velocidad {
     margin-top: 0.5rem;
     background: transparent;
     border: 1px solid #ffe81f;
-    color: #ffe81f;
+    color:  #ffffff;
     padding: 0.4rem 1rem;
     cursor: pointer;
     transition: 0.3s;
@@ -412,7 +416,8 @@ footer {
     text-align: center;
     padding: 1rem;
     margin-top: 2rem;
-    opacity: 0.7;
+    opacity: 1;
+    color:  #ffffff;
 }
 
 /* ANIMACIONES */
