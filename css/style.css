@@ -239,6 +239,24 @@ h2 {
     letter-spacing: 1px;
 }
 
+#contenedor-hangar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+#contenedor-hangar .tarjeta {
+    overflow: hidden;
+}
+
+#contenedor-hangar .imagen-nave {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+}
+
+
+
 /* TARJETAS */
 .tarjeta {
     background: var(--color-tarjeta);
