@@ -93,13 +93,21 @@ body.claro .columna {
 /* HEADER */
 header {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
-    padding: 0 2rem 2rem 2rem;
-    height: 75px;
+    padding: 0 2rem;
+    height: 90px;
     background: rgba(0,0,0,0.6);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    height: 100%;
+    width: auto;
+    max-width: 350px;
+    object-fit: cover;
+    display: block;
 }
 
 header h1 {
@@ -110,29 +118,23 @@ header h1 {
     font-size: 1.3rem;
 }
 
-.logo {
-    width: 20em;
-    height: 5em;
-    max-width: 400px;
-    display: block;
-    margin-top: 1em;
-}
 
 /* NAV */
 nav {
-    background: rgba(0,0,0,0.6);
+    background: transparent;
     border: none;
-    backdrop-filter: blur(8px);
-    padding: 0.5rem 2rem;
+    backdrop-filter: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
 }
 
 nav ul {
     display: flex;
-    gap: 1.5rem;
+    gap: 3rem;
     padding: 0;
     list-style: none;
-    margin-right: 10em;
-    margin-top: 2em;
+    margin: 0;
 }
 
 nav button {
@@ -153,9 +155,6 @@ nav button:hover {
 
 /* BOTON TEMA */
 #toggle-tema {
-    position: absolute;
-    top: 20px;
-    right: 20px;
     background: transparent;
     border: 1px solid #ffe81f;
     color: #ffe81f;
@@ -164,6 +163,7 @@ nav button:hover {
     transition: 0.3s;
     letter-spacing: 1px;
     font-size: 0.85rem;
+    align-self: center;
 }
 
 #toggle-tema:hover {
@@ -239,7 +239,7 @@ label {
 
 #contenedor-hangar {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
 }
 
@@ -296,6 +296,7 @@ button {
     border-radius: 6px;
     font-weight: bold;
 }
+
 
 .btn-editar,
 .btn-eliminar,

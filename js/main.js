@@ -89,16 +89,6 @@ function addPiloto(e) {
 
     if (hayErrores) return;
 
-    // Crea el objeto piloto
-    const nuevoPiloto = {
-        id: Date.now(),
-        nombre,
-        rango,
-        nave,
-        victorias,
-        estado
-    };
-
     // saber si esta en edicion
      const editando = document.getElementById('form-piloto').dataset.editando;
 
@@ -119,6 +109,7 @@ function addPiloto(e) {
     }
 
     localStorage.setItem('pilotos', JSON.stringify(pilotos)); // convierte el array en texto para guardarlo en el LocalStorage
+    document.getElementById('form-piloto').reset()
     renderPilotos();
 }
 
@@ -308,6 +299,8 @@ function renderKanban(filtro = 'todas') {
     document.querySelector('#en-curso .tarjetas').innerHTML = '';
     document.querySelector('#completada .tarjetas').innerHTML = '';
 
+    
+
     // Filtra según la dificultad seleccionada
     const misionesFiltradas = filtro === 'todas' 
         ? misiones 
@@ -338,6 +331,7 @@ function renderKanban(filtro = 'todas') {
         tarjeta.addEventListener('dragstart', (e) => {
             e.dataTransfer.setData('text/plain', mision.id);
         });
+        
     });
 
     actualizarContadores();
