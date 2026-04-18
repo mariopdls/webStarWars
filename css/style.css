@@ -11,14 +11,7 @@
     src: url(../fonts/STJEDISE.TTF) format('truetype');
 }
 
-/* VARIABLES */
-:root {
-    --color-primario: #ffe81f;
-    --color-fondo-overlay: rgba(0, 0, 0, 0.75);
-    --color-tarjeta: rgba(20, 20, 30, 0.85);
-    --color-texto: #f1f5f9;
-    --color-borde: rgba(255, 255, 255, 0.1);
-}
+/* COLORES */
 
 /* RESET */
 * {
@@ -40,7 +33,7 @@ input.invalido, select.invalido {
 /* BODY Y FONDOS */
 body {
     font-family: 'Orbitron';
-    color: var(--color-texto);
+    color: #f1f5f9;
     min-height: 100vh;
     position: relative;
 }
@@ -57,15 +50,16 @@ body::after {
     content: "";
     position: fixed;
     inset: 0;
-    background: var(--color-fondo-overlay);
+    background: rgba(0, 0, 0, 0.75);
     z-index: -1;
 }
 
 body.claro {
-    --color-fondo-overlay: rgba(30, 60, 120, 0.35);
-    --color-tarjeta: rgba(255, 255, 255, 0.15);
-    --color-texto: #ffffff;
-    --color-borde: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+}
+
+body.claro::after {
+    background: rgba(30, 60, 120, 0.35);
 }
 
 body.claro .tarjeta {
@@ -105,12 +99,12 @@ header {
     height: 75px;
     background: rgba(0,0,0,0.6);
     backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--color-borde);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 header h1 {
-    color: var(--color-primario);
-    text-shadow: 0 0 4px var(--color-primario);
+    color: #ffe81f;
+    text-shadow: 0 0 4px #ffe81f;
     letter-spacing: 3px;
     font-family: 'StarJedi', sans-serif;
     font-size: 1.3rem;
@@ -143,8 +137,8 @@ nav ul {
 
 nav button {
     background: transparent;
-    border: 1px solid var(--color-primario);
-    color: var(--color-primario);
+    border: 1px solid #ffe81f;
+    color: #ffe81f;
     padding: 0.7rem 1.8rem;
     cursor: pointer;
     transition: 0.3s;
@@ -152,9 +146,9 @@ nav button {
 }
 
 nav button:hover {
-    background: var(--color-primario);
+    background: #ffe81f;
     color: black;
-    box-shadow: 0 0 10px var(--color-primario);
+    box-shadow: 0 0 10px #ffe81f;
 }
 
 /* BOTON TEMA */
@@ -163,8 +157,8 @@ nav button:hover {
     top: 20px;
     right: 20px;
     background: transparent;
-    border: 1px solid var(--color-primario);
-    color: var(--color-primario);
+    border: 1px solid #ffe81f;
+    color: #ffe81f;
     padding: 0.4rem 1rem;
     cursor: pointer;
     transition: 0.3s;
@@ -173,9 +167,9 @@ nav button:hover {
 }
 
 #toggle-tema:hover {
-    background: var(--color-primario);
+    background: #ffe81f;
     color: black;
-    box-shadow: 0 0 15px var(--color-primario);
+    box-shadow: 0 0 15px #ffe81f;
 }
 
 /* MAIN */
@@ -196,8 +190,8 @@ main {
 /* TITULOS */
 h2 {
     margin-bottom: 1rem;
-    color: var(--color-primario);
-    text-shadow: 0 0 2px var(--color-primario);
+    color: #ffe81f;
+    text-shadow: 0 0 2px #ffe81f;
     font-family: 'StarJedi2';
     letter-spacing: 3px;
     text-align: center;
@@ -231,8 +225,8 @@ h2 {
 #ordenar-velocidad {
     margin-top: 0.5rem;
     background: transparent;
-    border: 1px solid var(--color-primario);
-    color: var(--color-primario);
+    border: 1px solid #ffe81f;
+    color: #ffe81f;
     padding: 0.4rem 1rem;
     cursor: pointer;
     transition: 0.3s;
@@ -241,8 +235,8 @@ h2 {
 
 /* TARJETAS */
 .tarjeta {
-    background: var(--color-tarjeta);
-    border: 1px solid var(--color-borde);
+    background: rgba(20, 20, 30, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     padding: 1rem;
     transition: 0.3s;
@@ -286,8 +280,8 @@ button {
 .btn-avanzar,
 .btn-retroceder {
     background: transparent;
-    border: 1px solid var(--color-primario);
-    color: var(--color-primario);
+    border: 1px solid #ffe81f;
+    color: #ffe81f;
     padding: 0.4rem 1rem;
     cursor: pointer;
     transition: 0.3s;
@@ -299,17 +293,17 @@ button {
 .btn-eliminar:hover,
 .btn-avanzar:hover,
 .btn-retroceder:hover {
-    background: var(--color-primario);
+    background: #ffe81f;
     color: black;
-    box-shadow: 0 0 10px var(--color-primario);
+    box-shadow: 0 0 10px #ffe81f;
 }
 
 /* FORMULARIOS */
 form {
-    background: var(--color-tarjeta);
+    background: rgba(20, 20, 30, 0.85);
     padding: 1rem;
     border-radius: 10px;
-    border: 1px solid var(--color-borde);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 1rem;
 }
 
@@ -331,14 +325,14 @@ input, select {
 .columna {
     flex: 1;
     min-width: 260px;
-    background: var(--color-tarjeta);
+    background: rgba(20, 20, 30, 0.85);
     padding: 1rem;
     border-radius: 10px;
-    border: 1px solid var(--color-borde);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .columna h3 {
-    color: var(--color-primario);
+    color: #ffe81f;
     margin-bottom: 0.5rem;
 }
 
@@ -350,16 +344,16 @@ input, select {
 
 /* DASHBOARD */
 .estadistica {
-    background: var(--color-tarjeta);
+    background: rgba(20, 20, 30, 0.85);
     padding: 1rem;
     border-radius: 10px;
-    border: 1px solid var(--color-borde);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
     transition: 0.3s;
 }
 
 .estadistica:hover {
-    box-shadow: 0 0 10px var(--color-primario);
+    box-shadow: 0 0 10px #ffe81f;
 }
 
 .barra-fondo {
@@ -380,8 +374,8 @@ input, select {
 #btn-exportar {
     margin-top: 2rem;
     background: transparent;
-    border: 1px solid var(--color-primario);
-    color: var(--color-primario);
+    border: 1px solid #ffe81f;
+    color: #ffe81f;
     padding: 0.4rem 1rem;
     cursor: pointer;
     transition: 0.3s;
@@ -468,8 +462,8 @@ footer {
 #modal-cerrar {
     margin-top: 1rem;
     background: transparent;
-    border: 1px solid var(--color-primario);
-    color: var(--color-primario);
+    border: 1px solid #ffe81f;
+    color: #ffe81f;
     padding: 0.4rem 1rem;
     cursor: pointer;
     transition: 0.3s;
