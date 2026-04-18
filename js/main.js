@@ -271,6 +271,8 @@ function addMision(e) {
 
     misiones.push(nuevaMision);
     localStorage.setItem('misiones', JSON.stringify(misiones));
+    document.getElementById('form-mision').reset();
+
     renderKanban();
 }
 
