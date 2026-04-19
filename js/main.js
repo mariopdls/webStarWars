@@ -67,31 +67,43 @@ function renderHangar(navesFiltradas) {
 // y añade el listener para filtrar al cambiar la selección.
 function rellenarFiltroTipo() {
     const filtroTipo  = document.getElementById('filtro-tipo');
-    const tiposUnicos = [...new Set(naves.map(nave => nave.tipo))]; // tipos sin repetir
+    const tiposUnicos = Array.from(new Set(naves.map(nave => nave.tipo))); // extrae los tipos únicos del array de naves
  
-    tiposUnicos.forEach(tipo => {
-        const option       = document.createElement('option');
-        option.value       = tipo;
-        option.textContent = tipo;
-        filtroTipo.appendChild(option);
-    });
+for (let i = 0; i < tiposUnicos.length; i++) { // recorrer el array de tipos únicos
+    const option       = document.createElement('option'); // crear un elemento option para cada tipo. option es un elemento específico para los select,
+    option.value       = tiposUnicos[i];                    // que representa cada una de las opciones disponibles.
+    option.textContent = tiposUnicos[i]; 
+    filtroTipo.appendChild(option); // el bucle añade cada option al select, para que el usuario pueda elegir entre los tipos de naves disponibles.
+}
  
-    filtroTipo.addEventListener('change', function() {
-        const tipoSeleccionado = this.value;
-        const navesFiltradas   = tipoSeleccionado === 'todas'
-            ? naves
-            : naves.filter(nave => nave.tipo === tipoSeleccionado);
-        renderHangar(navesFiltradas);
-    });
+filtroTipo.addEventListener('change', function() {
+    const tipoSeleccionado = this.value;
+    let navesFiltradas;
+
+    if (tipoSeleccionado === 'todas') {
+        navesFiltradas = naves;
+    } else {
+        navesFiltradas = naves.filter(nave => nave.tipo === tipoSeleccionado);
+    }
+
+    renderHangar(navesFiltradas);
+});
 }
  
 // Buscador en tiempo real: filtra mientras el usuario escribe (evento input)
 document.getElementById('buscar').addEventListener('input', function(e) {
-    const termino      = e.target.value.toLowerCase();
-    const navesFiltradas = naves.filter(nave =>
-        nave.nombre.toLowerCase().includes(termino) ||
-        nave.tipo.toLowerCase().includes(termino)
-    );
+    const termino      = e.target.value.toLowerCase(); // convertir a minúsculas para hacer la búsqueda case-insensitive
+    const navesFiltradas = [];
+
+    for (let i = 0; i < naves.length; i++) {
+        const nombreMinusculas = naves[i].nombre.toLowerCase();
+        const tipoMinusculas   = naves[i].tipo.toLowerCase();
+
+        if (nombreMinusculas.includes(termino) || tipoMinusculas.includes(termino)) {
+            navesFiltradas.push(naves[i]);
+        }
+    }  // El bucle recorre el array de naves y compara el término de búsqueda con el nombre y tipo de cada nave. Si el término está incluido en el nombre o tipo, la nave se añade al array de naves filtradas.
+
     renderHangar(navesFiltradas);
 });
  
@@ -125,13 +137,13 @@ function abrirModal(nave) {
         <p>Estado: ${nave.estado}</p>
     `;
  
-    modal.classList.remove('oculto');
+    modal.classList.remove('oculto'); // mostrar el modal quitando la clase oculto
 }
  
 // Cierra el modal al hacer clic en el botón de cerrar
-document.getElementById('modal-cerrar').addEventListener('click', () => {
+document.getElementById('modal-cerrar').addEventListener('click', function() {
     document.getElementById('modal').classList.add('oculto');
-});
+}); // El modal se cierra añadiendo la clase oculto, que tiene display: none en CSS.
  
  
  
@@ -190,10 +202,10 @@ function addPiloto(e) {
     const estado    = document.getElementById('piloto-estado').value;
  
     // Limpiar errores anteriores
-    document.querySelectorAll('.error').forEach(e => e.remove());
-    document.querySelectorAll('.invalido').forEach(e => e.classList.remove('invalido'));
+    document.querySelectorAll('.error').forEach(e => e.remove()); //recorre y elimina los mensajes de error
+    document.querySelectorAll('.invalido').forEach(e => e.classList.remove('invalido')); //recorre y quita las inválidas
  
-    let hayErrores = false;
+    let hayErrores = false; // bandera para controlar si hay errores en el formulario
  
     // Muestra un mensaje de error debajo del campo y lo marca en rojo
     function mostrarError(idCampo, mensaje) {
@@ -210,13 +222,19 @@ function addPiloto(e) {
     if (rango === '')                mostrarError('piloto-rango',     'El rango no puede estar vacío');
     if (nave === '')                 mostrarError('piloto-nave',      'Debes seleccionar una nave');
     if (!victorias || victorias < 0) mostrarError('piloto-victorias', 'Las victorias deben ser un número positivo');
- 
+    //validaciones: si el nombre o rango están vacíos,
+    //  si no se ha seleccionado una nave o 
+    // si las victorias no son un número positivo,
+    //  se muestra un mensaje de error y se marca el campo en rojo.  también establece la bandera hayErrores a true.
+
+
     // Si hayErrores es true → sale de la función. El piloto no se crea.
     // Si hayErrores es false → el código continúa y el piloto sí se crea.
     if (hayErrores) return;
  
     // Comprobar si estamos en modo edición
-    const editando = document.getElementById('form-piloto').dataset.editando;
+    const editando = document.getElementById('form-piloto').dataset.editando; //dataset permite guardar información personalizada en el HTML.
+                                                                            // En este caso, guardamos el id del piloto que estamos editando.
  
     if (editando) {
         // Editar: sustituir el piloto existente por los nuevos datos
@@ -239,7 +257,7 @@ function addPiloto(e) {
  
     localStorage.setItem('pilotos', JSON.stringify(pilotos)); // guardar en localStorage
     document.getElementById('form-piloto').reset();           // limpiar el formulario
-    renderPilotos();
+    renderPilotos(); // actualizar la lista de pilotos en pantalla
 }
  
 // Renderiza la lista de pilotos como tarjetas dinámicas
@@ -294,7 +312,7 @@ function eliminarPiloto(id) {
     const confirmacion = confirm('¿Seguro que quieres eliminar este piloto?');
  
     if (confirmacion) {
-        const tarjeta = document.querySelector(`.tarjeta[data-id="${id}"]`);
+        const tarjeta = document.querySelector(`.tarjeta[data-id="${id}"]`); // selecciona la tarjeta del piloto a eliminar usando su id
         tarjeta.classList.add('desaparece'); // lanza la animación de desaparición
  
         // Espera a que termine la animación antes de borrar del array
@@ -302,12 +320,9 @@ function eliminarPiloto(id) {
             pilotos = pilotos.filter(piloto => piloto.id !== id); // guarda todos menos el borrado
             localStorage.setItem('pilotos', JSON.stringify(pilotos));
             renderPilotos();
-        }, 1000);
+        }, 1000); // el tiempo debe coincidir con la duración de la animación en CSS (1s en este caso)
     }
 }
- 
- 
- 
  
 // ============================================================
 // 4. MISIONES (KANBAN)
@@ -316,7 +331,7 @@ function eliminarPiloto(id) {
 // Genera el formulario de misiones con el select de pilotos activos
 function renderFormularioMision() {
     const contenedor     = document.getElementById('contenedor-formulario-mision');
-    const pilotosActivos = pilotos.filter(p => p.estado === 'activo'); // solo pilotos activos
+    const pilotosActivos = pilotos.filter(p => p.estado === 'activo'); // lambda solo pilotos activos
  
     contenedor.innerHTML = `
         <form id="form-mision">
@@ -353,7 +368,7 @@ function renderFormularioMision() {
 }
  
 // Añade una nueva misión al array y la guarda en localStorage
-function addMision(e) {
+function addMision(e) { // sigue el mismo patron que addPiloto: recoge los datos, valida, muestra errores, si no hay errores crea la misión, guarda en localStorage, limpia el formulario y renderiza el kanban.
     e.preventDefault();
  
     const nombre      = document.getElementById('mision-nombre').value.trim();
@@ -404,14 +419,23 @@ function addMision(e) {
 // Renderiza el tablero Kanban con las misiones en sus columnas correspondientes.
 // Acepta un filtro de dificultad opcional (por defecto muestra todas).
 function renderKanban(filtro = 'todas') {
-    document.querySelector('#pendiente .tarjetas').innerHTML  = '';
+    document.querySelector('#pendiente .tarjetas').innerHTML  = ''; //querySelector, selecciona el contenedor de tarjetas de cada columna y lo limpia antes de volver a llenarlo con las misiones filtradas.
     document.querySelector('#en-curso .tarjetas').innerHTML   = '';
     document.querySelector('#completada .tarjetas').innerHTML = '';
  
     // Filtrar según la dificultad seleccionada
-    const misionesFiltradas = filtro === 'todas'
-        ? misiones
-        : misiones.filter(m => m.dificultad === filtro);
+    let misionesFiltradas;
+
+    if (filtro === 'todas') { //si el filtro es todas, no se aplica y se muestran todas; si es otro, se recorre por separado y se añaden las que coinciden.
+        misionesFiltradas = misiones;
+    } else {
+        misionesFiltradas = [];
+        for (let i = 0; i < misiones.length; i++) {
+            if (misiones[i].dificultad === filtro) {
+                misionesFiltradas.push(misiones[i]); //push añade cada misión que cumple la condición al array de misiones filtradas.
+            }
+        }
+    }
  
     // Recorrer las misiones filtradas y crear una tarjeta por cada una
     misionesFiltradas.forEach(mision => {
@@ -436,10 +460,11 @@ function renderKanban(filtro = 'todas') {
  
         document.querySelector(`#${mision.columna} .tarjetas`).appendChild(tarjeta);
  
-        // El dragstart va aquí porque cada tarjeta nueva necesita su propio listener
-        tarjeta.setAttribute('draggable', true);
-        tarjeta.addEventListener('dragstart', (e) => {
-            e.dataTransfer.setData('text/plain', mision.id);
+        // El dragstart se registra aquí, dentro del forEach que recorre las misiones filtradas, 
+        // para que cada tarjeta tenga su propio listener de arrastre con su id específico.
+        tarjeta.setAttribute('draggable', true); // hace que la tarjeta sea arrastrable.
+        tarjeta.addEventListener('dragstart', function(e) {
+        e.dataTransfer.setData('text/plain', mision.id); // al iniciar el arrastre, se guarda el id de la misión en el dataTransfer del evento, para poder recuperarlo al soltar la tarjeta en otra columna.
         });
     });
  
@@ -645,8 +670,8 @@ function calcularDashboard() {
 // Botón para exportar los datos de pilotos y misiones como archivo JSON
 document.getElementById('btn-exportar').addEventListener('click', function() {
     const data = { naves, pilotos, misiones };
-    const json = JSON.stringify(data, null, 2);
-    const blob = new Blob([json], { type: 'application/json' });
+    const json = JSON.stringify(data, null, 2); //json stringify convierte el objeto data a un string JSON. El segundo parámetro es null porque no usamos una función de reemplazo, y el tercero es 2 para que el JSON resultante tenga una indentación de 2 espacios.
+    const blob = new Blob([json], { type: 'application/json' }); //blob es un objeto que representa un archivo, en este caso el JSON con los datos. Se crea a partir del string JSON y se especifica el tipo MIME para que se descargue como un archivo JSON.
     const url  = URL.createObjectURL(blob);
     const a    = document.createElement('a');
     a.href     = url;
@@ -654,8 +679,11 @@ document.getElementById('btn-exportar').addEventListener('click', function() {
     a.click();
     URL.revokeObjectURL(url); // liberar la URL temporal
 });
- 
- 
+
+//esta funcuion se encarga de exportar los datos de naves, pilotos y misiones a un archivo JSON que el usuario puede descargar. 
+// Al hacer clic en el botón de exportar, se crea un objeto con los datos, se convierte a JSON, 
+// se crea un Blob para representar el archivo, se genera una URL temporal para ese Blob, y se simula un clic en un enlace para descargar el archivo.
+//  Finalmente, se revoca la URL temporal para liberar recursos.
  
  
 // ============================================================
