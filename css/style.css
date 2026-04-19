@@ -90,6 +90,20 @@ body.claro .columna {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+body.claro .estadistica {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+body.claro #contenedor-grafico {
+    background: transparent;
+}
+
+body.claro .barra-fondo {
+    background: rgba(255, 255, 255, 0.2);
+}
+
 /* HEADER */
 header {
     display: flex;
@@ -461,15 +475,75 @@ footer {
     100% { opacity: 0; transform: translateX(30px); }
 }
 
+
 /* RESPONSIVE */
-@media (max-width: 600px) {
-    nav ul {
+@media (max-width: 1024px) {
+    #contenedor-hangar {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    header {
         flex-direction: column;
-        align-items: center;
+        height: auto;
+        padding: 1rem;
+        gap: 0.5rem;
+    }
+
+    .logo {
+        height: 60px;
+        width: auto;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+        margin: 0;
+    }
+
+    nav button {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    #toggle-tema {
+        position: static;
+        align-self: center;
+    }
+
+    #contenedor-hangar {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #lista-pilotos {
+        grid-template-columns: 1fr;
+    }
+
+    #contenedor-formulario-piloto,
+    #contenedor-formulario-mision,
+    #filtros-misiones {
+        max-width: 100%;
     }
 
     #tablero-kanban {
         flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    #contenedor-hangar {
+        grid-template-columns: 1fr;
+    }
+
+    nav button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+
+    h2 {
+        font-size: 1rem;
     }
 }
 
