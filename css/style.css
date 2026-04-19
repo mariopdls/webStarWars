@@ -1,4 +1,6 @@
-/* FUENTES */
+/* ============================================================
+   FUENTES
+   ============================================================ */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
 @font-face {
@@ -11,26 +13,20 @@
     src: url(../fonts/STJEDISE.TTF) format('truetype');
 }
 
-/* COLORES */
 
-/* RESET */
+/* ============================================================
+   RESET
+   ============================================================ */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-.error {
-    color: red;
-    font-size: 0.8rem;
-    margin-bottom: 0.5rem;
-}
 
-input.invalido, select.invalido {
-    border: 1px solid red;
-}
-
-/* BODY Y FONDOS */
+/* ============================================================
+   BODY Y FONDO
+   ============================================================ */
 body {
     font-family: 'Orbitron';
     color: #f1f5f9;
@@ -38,6 +34,7 @@ body {
     position: relative;
 }
 
+/* Imagen de fondo */
 body::before {
     content: "";
     position: fixed;
@@ -46,6 +43,7 @@ body::before {
     z-index: -2;
 }
 
+/* Capa oscura encima del fondo */
 body::after {
     content: "";
     position: fixed;
@@ -54,6 +52,10 @@ body::after {
     z-index: -1;
 }
 
+
+/* ============================================================
+   MODO CLARO
+   ============================================================ */
 body.claro {
     color: #ffffff;
 }
@@ -62,10 +64,14 @@ body.claro::after {
     background: rgba(30, 60, 120, 0.35);
 }
 
-body.claro .tarjeta {
+body.claro header {
+    background: rgba(30, 60, 120, 0.3);
     backdrop-filter: blur(12px);
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+body.claro nav {
+    background: rgba(30, 60, 120, 0.3);
+    backdrop-filter: blur(12px);
 }
 
 body.claro form {
@@ -74,14 +80,10 @@ body.claro form {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-body.claro nav {
-    background: rgba(30, 60, 120, 0.3);
+body.claro .tarjeta {
     backdrop-filter: blur(12px);
-}
-
-body.claro header {
-    background: rgba(30, 60, 120, 0.3);
-    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 body.claro .columna {
@@ -104,24 +106,106 @@ body.claro .barra-fondo {
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* HEADER */
+body.claro .tarjeta p,
+body.claro .tarjeta h3 {
+    color: #000000;
+}
+
+body.claro .btn-editar {
+    border-color: #0066ff;
+    color: #0044aa;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+body.claro .btn-eliminar {
+    border-color: #aa0000;
+    color: #aa0000;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+body.claro .btn-avanzar,
+body.claro .btn-retroceder {
+    border-color: #886600;
+    color: #886600;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+body.claro #form-piloto button[type="submit"],
+body.claro #form-mision button[type="submit"] {
+    border-color: #000000;
+    color: #000000;
+    background: rgba(200, 220, 255, 0.3);
+}
+
+body.claro .btn-editar:hover {
+    background: #0044aa;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 68, 170, 0.5);
+}
+
+body.claro .btn-eliminar:hover {
+    background: #aa0000;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(170, 0, 0, 0.5);
+}
+
+body.claro .btn-avanzar:hover,
+body.claro .btn-retroceder:hover {
+    background: #886600;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(136, 102, 0, 0.5);
+}
+
+body.claro nav button:hover {
+    background: #1a1a2e;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(26, 26, 46, 0.5);
+}
+
+body.claro #toggle-tema:hover {
+    background: #1a1a2e;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(26, 26, 46, 0.5);
+}
+
+body.claro #ordenar-velocidad:hover {
+    background: #1a1a2e;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(26, 26, 46, 0.5);
+}
+
+body.claro #btn-exportar:hover {
+    background: #1a1a2e;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(26, 26, 46, 0.5);
+}
+
+body.claro #modal-cerrar:hover {
+    background: #1a1a2e;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(26, 26, 46, 0.5);
+}
+
+body.claro #form-piloto button[type="submit"]:hover,
+body.claro #form-mision button[type="submit"]:hover {
+    background: #ffffff8a;
+    color: #000000;
+    box-shadow: 0 0 10px rgba(0, 68, 170, 0.5);
+}
+
+
+/* ============================================================
+   HEADER Y LOGO
+   ============================================================ */
 header {
     display: flex;
     align-items: stretch;
     justify-content: space-between;
     padding: 0 2rem;
     height: 90px;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.logo {
-    height: 100%;
-    width: auto;
-    max-width: 350px;
-    object-fit: cover;
-    display: block;
 }
 
 header h1 {
@@ -132,8 +216,18 @@ header h1 {
     font-size: 1.3rem;
 }
 
+.logo {
+    height: 100%;
+    width: auto;
+    max-width: 350px;
+    object-fit: cover;
+    display: block;
+}
 
-/* NAV */
+
+/* ============================================================
+   NAVEGACIÓN
+   ============================================================ */
 nav {
     background: transparent;
     border: none;
@@ -167,7 +261,7 @@ nav button:hover {
     box-shadow: 0 0 10px #ffe81f;
 }
 
-/* BOTON TEMA */
+/* Botón modo oscuro/claro */
 #toggle-tema {
     background: transparent;
     border: 1px solid #ffe81f;
@@ -186,12 +280,14 @@ nav button:hover {
     box-shadow: 0 0 15px #ffe81f;
 }
 
-/* MAIN */
+
+/* ============================================================
+   MAIN Y SECCIONES
+   ============================================================ */
 main {
     padding: 1.5rem;
 }
 
-/* SECCIONES */
 .seccion {
     display: none;
     animation: fade 0.5s ease;
@@ -201,7 +297,10 @@ main {
     display: block;
 }
 
-/* TITULOS */
+
+/* ============================================================
+   TIPOGRAFÍA
+   ============================================================ */
 h2 {
     margin-bottom: 1rem;
     color: #ffffff;
@@ -214,14 +313,56 @@ label {
     color: #ffffff;
 }
 
-/* GRID Y CONTENEDORES */
-#contenedor-hangar,
-#lista-pilotos {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 280px));
-    gap: 1rem;
+
+/* ============================================================
+   FORMULARIOS Y VALIDACIÓN
+   ============================================================ */
+form {
+    background: rgba(20, 20, 30, 0.85);
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
 }
 
+input, select {
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    border: none;
+}
+
+.error {
+    color: red;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+input.invalido, select.invalido {
+    border: 1px solid red;
+}
+
+/* Botones de submit */
+#form-piloto button[type="submit"],
+#form-mision button[type="submit"] {
+    background: transparent;
+    border: 1px solid #ffe81f;
+    color: #ffffff;
+    padding: 0.7rem 1.8rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 0.5rem;
+}
+
+#form-piloto button[type="submit"]:hover,
+#form-mision button[type="submit"]:hover {
+    background: #ffe81f;
+    color: black;
+    box-shadow: 0 0 10px #ffe81f;
+}
+
+/* Contenedores de formularios centrados */
 #contenedor-formulario-piloto,
 #contenedor-formulario-mision,
 #filtros-misiones {
@@ -230,46 +371,72 @@ label {
     margin-bottom: 1rem;
 }
 
-/* HANGAR */
-#contador-hangar {
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    opacity: 1;
-    font-size: 25px;
-    padding-bottom: 15px;
-    color: #ffffff;
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
+button {
+    border-radius: 6px;
+    font-weight: bold;
 }
 
-#ordenar-velocidad {
-    margin-top: 0.5rem;
+.btn-editar {
     background: transparent;
-    border: 1px solid #ffe81f;
-    color:  #ffffff;
+    border: 1px solid #4a9eff;
+    color: #4a9eff;
     padding: 0.4rem 1rem;
     cursor: pointer;
     transition: 0.3s;
-    letter-spacing: 1px;
+    font-size: 0.9rem;
+    margin: 0.2rem;
 }
 
-#contenedor-hangar {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+.btn-editar:hover {
+    background: #4a9eff;
+    color: black;
+    box-shadow: 0 0 10px #4a9eff;
 }
 
-#contenedor-hangar .tarjeta {
-    overflow: hidden;
+.btn-eliminar {
+    background: transparent;
+    border: 1px solid #ff4a4a;
+    color: #ff4a4a;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.9rem;
+    margin: 0.2rem;
 }
 
-#contenedor-hangar .imagen-nave {
-    width: 100%;
-    height: 150px;
-    object-fit: contain;
+.btn-eliminar:hover {
+    background: #ff4a4a;
+    color: black;
+    box-shadow: 0 0 10px #ff4a4a;
+}
+
+.btn-avanzar,
+.btn-retroceder {
+    background: transparent;
+    border: 1px solid #ffe81f;
+    color: #ffe81f;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.9rem;
+    margin: 0.2rem;
+}
+
+.btn-avanzar:hover,
+.btn-retroceder:hover {
+    background: #ffe81f;
+    color: black;
+    box-shadow: 0 0 10px #ffe81f;
 }
 
 
-
-/* TARJETAS */
+/* ============================================================
+   TARJETAS
+   ============================================================ */
 .tarjeta {
     background: rgba(20, 20, 30, 0.85);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -296,7 +463,26 @@ label {
     animation: mover 0.4s ease forwards;
 }
 
-/* IMAGENES DE NAVES */
+
+/* ============================================================
+   HANGAR DE NAVES
+   ============================================================ */
+#contenedor-hangar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+#contenedor-hangar .tarjeta {
+    overflow: hidden;
+}
+
+#contenedor-hangar .imagen-nave {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+}
+
 .imagen-nave {
     width: 80%;
     height: 130px;
@@ -305,72 +491,39 @@ label {
     margin: 0 auto;
 }
 
-/* BOTONES */
-button {
-    border-radius: 6px;
-    font-weight: bold;
+#contador-hangar {
+    margin-top: 0.5rem;
+    font-size: 25px;
+    padding-bottom: 15px;
+    color: #ffffff;
+    opacity: 1;
 }
 
-
-.btn-editar,
-.btn-eliminar,
-.btn-avanzar,
-.btn-retroceder {
-    background: transparent;
-    border: 1px solid #ffe81f;
-    color: #ffe81f;
-    padding: 0.4rem 1rem;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 0.9rem;
-    margin: 0.2rem;
-}
-
-.btn-editar:hover,
-.btn-eliminar:hover,
-.btn-avanzar:hover,
-.btn-retroceder:hover {
-    background: #ffe81f;
-    color: black;
-    box-shadow: 0 0 10px #ffe81f;
-}
-
-#form-piloto button[type="submit"],
-#form-mision button[type="submit"] {
+#ordenar-velocidad {
+    margin-top: 0.5rem;
     background: transparent;
     border: 1px solid #ffe81f;
     color: #ffffff;
-    padding: 0.7rem 1.8rem;
+    padding: 0.4rem 1rem;
     cursor: pointer;
     transition: 0.3s;
-    margin-top: 0.5rem;
+    letter-spacing: 1px;
 }
 
-#form-piloto button[type="submit"]:hover,
-#form-mision button[type="submit"]:hover {
-    background: #ffe81f;
-    color: black;
-    box-shadow: 0 0 10px #ffe81f;
+
+/* ============================================================
+   REGISTRO DE PILOTOS
+   ============================================================ */
+#lista-pilotos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 280px));
+    gap: 1rem;
 }
 
-/* FORMULARIOS */
-form {
-    background: rgba(20, 20, 30, 0.85);
-    padding: 1rem;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 1rem;
-}
 
-input, select {
-    width: 100%;
-    padding: 0.6rem;
-    margin-bottom: 0.5rem;
-    border-radius: 6px;
-    border: none;
-}
-
-/* KANBAN */
+/* ============================================================
+   KANBAN DE MISIONES
+   ============================================================ */
 #tablero-kanban {
     display: flex;
     gap: 1rem;
@@ -397,7 +550,10 @@ input, select {
     gap: 0.5rem;
 }
 
-/* DASHBOARD */
+
+/* ============================================================
+   DASHBOARD
+   ============================================================ */
 .estadistica {
     background: rgba(20, 20, 30, 0.85);
     padding: 1rem;
@@ -409,6 +565,10 @@ input, select {
 
 .estadistica:hover {
     box-shadow: 0 0 10px #ffe81f;
+}
+
+#contenedor-estadisticas p {
+    margin-top: 1.5rem;
 }
 
 .barra-fondo {
@@ -440,20 +600,64 @@ input, select {
     margin-right: auto;
 }
 
-#contenedor-estadisticas p {
-    margin-top: 1.5rem;
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
 }
 
-/* FOOTER */
+.modal-caja {
+    background: rgba(20, 20, 30, 0.95);
+    border: 1px solid #ffe81f;
+    border-radius: 10px;
+    padding: 2rem;
+    max-width: 400px;
+    width: 90%;
+}
+
+.oculto {
+    display: none !important;
+}
+
+#modal-contenido p {
+    margin-bottom: 0.5rem;
+}
+
+#modal-cerrar {
+    margin-top: 1rem;
+    background: transparent;
+    border: 1px solid #ffe81f;
+    color: #ffe81f;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    letter-spacing: 1px;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
 footer {
     text-align: center;
     padding: 1rem;
     margin-top: 2rem;
     opacity: 1;
-    color:  #ffffff;
+    color: #ffffff;
 }
 
-/* ANIMACIONES */
+
+/* ============================================================
+   ANIMACIONES
+   ============================================================ */
 @keyframes fade {
     from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
@@ -476,7 +680,9 @@ footer {
 }
 
 
-/* RESPONSIVE */
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
 @media (max-width: 1024px) {
     #contenedor-hangar {
         grid-template-columns: repeat(2, 1fr);
@@ -545,43 +751,4 @@ footer {
     h2 {
         font-size: 1rem;
     }
-}
-
-/* MODALES */
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 200;
-}
-
-.modal-caja {
-    background: rgba(20,20,30,0.95);
-    border: 1px solid #ffe81f;
-    border-radius: 10px;
-    padding: 2rem;
-    max-width: 400px;
-    width: 90%;
-}
-
-.oculto {
-    display: none !important;
-}
-
-#modal-contenido p {
-    margin-bottom: 0.5rem;
-}
-
-#modal-cerrar {
-    margin-top: 1rem;
-    background: transparent;
-    border: 1px solid #ffe81f;
-    color: #ffe81f;
-    padding: 0.4rem 1rem;
-    cursor: pointer;
-    transition: 0.3s;
-    letter-spacing: 1px;
 }
