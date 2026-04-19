@@ -321,6 +321,24 @@ button {
     box-shadow: 0 0 10px #ffe81f;
 }
 
+#form-piloto button[type="submit"],
+#form-mision button[type="submit"] {
+    background: transparent;
+    border: 1px solid #ffe81f;
+    color: #ffffff;
+    padding: 0.7rem 1.8rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 0.5rem;
+}
+
+#form-piloto button[type="submit"]:hover,
+#form-mision button[type="submit"]:hover {
+    background: #ffe81f;
+    color: black;
+    box-shadow: 0 0 10px #ffe81f;
+}
+
 /* FORMULARIOS */
 form {
     background: rgba(20, 20, 30, 0.85);

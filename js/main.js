@@ -13,7 +13,7 @@ let naves = [
 
 // funcion que muestra las secciones al hacer click en el boton correspondiente.
 
-let pilotos = JSON.parse(localStorage.getItem('pilotos')) || [];  // busca en el localStorage si hay algo con el valor pilotos, si lo haylo pasa a array ya que
+let pilotos = JSON.parse(localStorage.getItem('pilotos')) || [];  // busca en el localStorage si hay algo con el valor pilotos, si lo hay lo pasa a array ya que
                                                                     // el localStorage solo guarda String y luego le dice que si no encuentra ninguno en vez de devolver null devuelva vacio
 let misiones = JSON.parse(localStorage.getItem('misiones')) || [];
 
@@ -87,6 +87,8 @@ function addPiloto(e) {
     if (nave === '') mostrarError('piloto-nave', 'Debes seleccionar una nave');
     if (!victorias || victorias < 0) mostrarError('piloto-victorias', 'Las victorias deben ser un número positivo');
 
+    //Si hayErrores es true → ejecuta return, que sale de la función inmediatamente. El piloto no se crea.
+    //Si hayErrores es false → no hace nada y el código continúa normalmente. El piloto sí se crea.
     if (hayErrores) return;
 
     // saber si esta en edicion
@@ -104,11 +106,13 @@ function addPiloto(e) {
         delete document.getElementById('form-piloto').dataset.editando;
         document.querySelector('#form-piloto button[type="submit"]').textContent = '➕ Añadir piloto';
     } else {
+        //Si no esta editando crea uno nuevo
         const nuevoPiloto = { id: Date.now(), nombre, rango, nave, victorias, estado };
         pilotos.push(nuevoPiloto);
     }
 
     localStorage.setItem('pilotos', JSON.stringify(pilotos)); // convierte el array en texto para guardarlo en el LocalStorage
+    //resetea todos los campos una vez que se crea el piloto
     document.getElementById('form-piloto').reset()
     renderPilotos();
 }
@@ -154,7 +158,9 @@ function eliminarPiloto(id) {
         const tarjeta = document.querySelector(`.tarjeta[data-id="${id}"]`);
         tarjeta.classList.add('desaparece');
 
+        //tiempo que dura la animacion de desaparece
         setTimeout(() => {
+            //guarda todos los pilotos menos el que queremos borrar
             pilotos = pilotos.filter(piloto => piloto.id !== id);
             localStorage.setItem('pilotos', JSON.stringify(pilotos));
             renderPilotos();
@@ -165,7 +171,7 @@ function eliminarPiloto(id) {
 function editarPiloto(id) {
     const piloto = pilotos.find(p => p.id === id);
 
-    // Rellenar el formulario con sus datos
+    // Cambia el valor que tenia actual por el nuevo
     document.getElementById('piloto-nombre').value = piloto.nombre;
     document.getElementById('piloto-rango').value = piloto.rango;
     document.getElementById('piloto-nave').value = piloto.nave;
